@@ -3,7 +3,7 @@
 ## TTFont
 
 `import forU.Ttf.TTFont ;`
-
+> Part of [forU](README.md).
 - Loads fonts from .ttf files or Bytebuffers.
 - Draws their path outlines to an arbitrary [target](#rendering).
 - Has no dependencies except `java.util.*`,  `java.io.*` and `java.nio.*` and should be useable on any platform! 
@@ -44,14 +44,16 @@ Render the passed text to the current `ShapeCreator` as a sequence of shape comm
 ~~CodePoints not in the BMP have to be encoded as surrogates according to....[this](http://www.unicode.org/faq//utf_bom.html#utf16-3).~~
 Simplified: If you want to display characters with codes that have more than 16 bits (like linear-b DEER 0x10082 𐂂), they have to be represented as two characters in a Java `String` , like 16-bit chars become 2 (or more) in UTF-8.
 The utility function  [`utf()`](#utf) will do that for you.
-
+```Java
+   myFont.text("linear-b DEER "+utf( 0x10082)+" 0x10082");
+```
 
 ### setSize
 ```Java
 public static float textSize(float t)
 ```
 Set the global text size. Fonts are rendered at this size if no individual `fontSize` was specified.
-Returms the previous value.
+Returns the previous value.
 
 ```Java
 public float fontSize(float t)
@@ -113,7 +115,7 @@ Returns the previous value.
   
 ## Credits
 
-  Based on the fantastic work of 
+  Based on the work of 
   
 #### Steve Hanov:
 
