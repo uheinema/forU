@@ -1,3 +1,8 @@
+# Work in progress, inconsistent! Do NOT fork (yet).
+
+As of now (14.05.2020) I can't seem to push to a private repository, this is public.
+Just working on the docs now, standby
+
 # forU
 
 Assorted Libs for APDE
