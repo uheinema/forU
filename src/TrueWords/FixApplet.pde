@@ -27,7 +27,7 @@
 
 // and if your curious or need to know
 ///  import android.content.Intent;
-boolean isReallyPreview(){
+boolean isPreview(){
  //// Intent intent = getActivity().getIntent();			
  /// String dataFolder = intent.getStringExtra("SKETCH_DATA_FOLDER");
  /// no ntk for Intent
@@ -50,18 +50,15 @@ boolean isReallyPreview(){
 
 
 /* testing */
-/* // off
+/*/// off
 boolean isPreview =false;
 boolean testedPreview=false;
 
 // results depend on @Override sketchPass
 @Deprecated
-boolean isPreview() {
+boolean isPreviewTest() {
   final String exist="I/i.exist";
-  if(testedPreview)
-  return isPreview;
-  else
-  testedPreview=true;
+  
   try {
     if (loadStrings( exist )!=null) {
       flash("App(like), found "+exist+" in assets.");

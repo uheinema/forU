@@ -22,7 +22,7 @@ String sketchName() {
 }
 
 PrintWriter log;
-boolean logging=false;
+boolean logging=true;
 
 
 void logprintln(String s) {
