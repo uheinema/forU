@@ -1,3 +1,7 @@
+v0.04
+
+on Github, Ttf documentation started
+
 v0.03
 
 forU.I

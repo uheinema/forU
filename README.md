@@ -1,13 +1,19 @@
 # Work in progress, inconsistent! Do NOT fork (yet).
 
-As of now (14.05.2020) I can't seem to push to a private repository, this is public.
+As of now (15.05.2020) I can't seem to push to a private repository, so this is public.
 Just working on the docs now, standby
 And now Markor ate most changes of 4 hours..stupid mixed case README.md.
 
 # forU
 
-Assorted Java libs made with/for APDE
+Assorted Java libs made with/for [APDE](#apde)
 
+- [Ttf](#foruttf) -Truetype font handling 
+- [I](#forui) - Simple user interface
+- [ClipDraw](#foruclipdraw) - Clipping with arbitrary region 
+- [ForTex](forufortex) - Procedural texture generation
+
+----
 
 # forU.Ttf
 
@@ -61,34 +67,48 @@ void mousePressed() {
   return;
 }
    
- void world(){
+ void world(){ // gets called when the button is pressed
    println("Hello world!");
  }
  
  ```
+ 
+ ----
  Things can get as complex as you want, including popups.
  
- ## forU.ForTex (other lib)
+ ----
+ # Soon to come
+ 
+ ## forU.ForTex 
+ 
+ (will probably get its own lib)
  
  Procedural textures for Android.
+ ![Sample ForTex screenshot](fortex.jpg)
  
- ## forU.ClipDraw ( soon)
+ ## forU.ClipDraw
+ 
+ (Soon)
  
 - Clipping with arbitrary regions
 - Offset paths (aka. Inflate/deflate/aura)
 - Wraps & includes de.lighti.clipper
+- ...
 
 ## forU.ForZen (work in progress)
 - Procedural pattern creation trying to mimic [Zentangle](https://zentangle.com/) drawings.
 - Double line elimination 
 - optimized GCODE generation 
 - use a clothpin and a M3 screw to upgrade your 3D-Printer to a pen plotter.
-- now  you see what this lib was created for...
+- now  you see what this lib was created for
+![ForZen screenshot](forzen.jpg)
+
  
  # Credits
  
  #### Ketai
- The methods for opening/closing the soft keyboard were copied from the Ketai library. 
+ 
+The methods for opening/closing the soft keyboard and handling  gestures on Android were copied from the [Ketai](https://github.com/ketai/ketai) library by Daniel Sauter. 
  
 #### TrueType
 
