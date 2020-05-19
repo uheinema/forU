@@ -3,10 +3,10 @@
 As of now (19.05.2020) I can't seem to push to a private repository, so this is public.
 Still working on the docs now, standby
 
-15.05.2020 1
+15.05.2020 
 - [X] Ttf useable (sans examples)
 
-19.05.2020
+19.05.2020 v0.1
 - [x] Ttf ok(so far) and documented
 - [x] Basic examples 
 
