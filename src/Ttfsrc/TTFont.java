@@ -37,13 +37,6 @@ import java.util.Arrays;
 // for debugging
 import java.io.PrintWriter;
 
-
-//port processing.core.PApplet;
-//mport processing.core.PGraphics;
-//mport processing.core.PVector;
-//mport processing.core.PConstants;
-
-
 interface Cmap {
   int format();
   int getGlyphIndex(int i);
@@ -118,8 +111,8 @@ public class TTFont implements Cmap {
   //  }
 
 
-  String name;
-  String nick;
+  public String name;
+  public String nick;
   ByteBuffer file;
   int scalarType;
   short numTables;
@@ -233,12 +226,12 @@ public class TTFont implements Cmap {
     return t;
   }
 
-  float version, fontRevision;
-  int checksumAdjustment, magicNumber, 
+  public float version, fontRevision;
+  public int checksumAdjustment, magicNumber, 
     flags, unitsPerEm, created, modified;
-  int xMin, yMin, xMax, yMax, macStyle;
-  int lowestRecPPEM, fontDirectionHint;
-  int indexToLocFormat, 
+  public int xMin, yMin, xMax, yMax, macStyle;
+  public int lowestRecPPEM, fontDirectionHint;
+  public int indexToLocFormat, 
     glyphDataFormat;
 
   //class Head {
@@ -305,10 +298,10 @@ public class TTFont implements Cmap {
     return offset + this.tables.get("glyf").offset;
   }
 
-  int ascent, descent, lineGap, advanceWidthMax;
-  int minLeftSideBearing, minRightSideBearing;
-  int xMaxExtent, caretSlopeRise, caretSlopeRun;
-  int caretOffset, metricDataFormat, numOfLongHorMetrics;
+  public int ascent, descent, lineGap, advanceWidthMax;
+  public int minLeftSideBearing, minRightSideBearing;
+  public int xMaxExtent, caretSlopeRise, caretSlopeRun;
+  public int caretOffset, metricDataFormat, numOfLongHorMetrics;
 
   private void readHheaTable() {
     // assert("hhea" in this.tables);
@@ -374,12 +367,12 @@ public class TTFont implements Cmap {
   }
 
   public class Glyph {
-    int xMin, xMax, yMax, yMin;
+    public int xMin, xMax, yMax, yMin;
     int numberOfContours=0;
     int offset;
     int numPoints;
     //PVector 
-    float hMetrics;
+    public float hMetrics;
 
     private Glyph( int index) { 
       // real(); // should we call this?

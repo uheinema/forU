@@ -14,11 +14,9 @@ public interface ShapeCreator {
       void createShape(); // at start of text
       void beginShape(); // for each glyph
       void vertex(float x,float y);
-      void endShape(int mode);
-      void quadraticVertex(float cx, float cy,
-        float x,float y);
-      void curveVertex(
-        float x,float y);
+      void endShape(int mode); // always CLOSE==2
+      void quadraticVertex(float cx, float cy, float x,float y);
+      void curveVertex(float x,float y); // not used by ttf
       void beginContour(); // glyph holes or components,
       void endContour();
     }

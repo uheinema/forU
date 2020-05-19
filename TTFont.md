@@ -39,7 +39,7 @@ to implement other sources (eg. Android assets).
 
 ## Rendering
 
----
+
 ### text
 ```Java
 public float text(String t) 
@@ -103,14 +103,129 @@ Return a `String` for codepoints beyond 0x10000
 utf(0x10082)   - \uD800\uDC82 𐂂
 utf(0x10A20) - \uD802\uDE20
 ```
----
+
+
 ## Glyphs
 
-Todo
+Individual Glyphs can be  accessed by
+
+---
+### size
+
+```Java
+public int size() 
+```
+Returns the number of glyphs in this font.
+
+---
+### getGlyph
+
+```Java
+public Glyph getGlyph(int index)
+```
+
+Return the `Glyph` at `index`.
+See [getGlyphIndex](#getglyphindex)
+
+---
+### class Glyph methods
+
+### draw
+
+#### Default `ShapeCreator`drawers
+
+```Java
+public void draw() // x=0=0
+      
+    public void draw(float x, float y, float factor) 
+      
+
+    public void draw(float x, float y) // factor= 1.0f
+    
+```
+
+---
+#### Specific drawer
+
+```Java
+   
+    public void draw(ShapeCreator cr, float x, float y, float scale) 
+```
+
+Render the Glyph.
+
+### Glyph metrics
+
+Tbw
+````
+public int xMin, xMax, yMax, yMin;
+    
+    
+    public float hMetrics;
+````
+
+
+## Character to Glyph mapping
+
+Character (or codepoint) mapping to actual glyphs and information about available mappings are obtained through the `interface`
+
+```Java
+interface Cmap {
+  int format();
+  int getGlyphIndex(int i);
+  int getSegments();
+  int getSegmentStart(int i);
+  int getSegmentEnd(int i);
+}
+```
+implemented by TTFont. This will use the 'best' mapping the font suports, in the order 12, then 4, and 0 as last resort.
+
+Used for eg. creating a character table of a given .ttf file. See [here](#apple).
+
+---
+### getGlyphIndex
+
+```Java
+int getGlyphIndex(int codepoint);
+```
+Returns the glyph index for the parameter codepoint.
+Return 0 if not resolveable.
+
+---
+
+### format
+
+```Java
+int format();
+```
+Returns the type of mapping table
+
+---
+### getSegments
+
+```Java
+  int getSegments();
+```
+ 
+ ---
+### getSegmentStart
+
+```Java
+int getSegmentStart(int i);
+```
+
+---
+### getSegmentEnd
+ 
+ ```Java
+  int getSegmentEnd(int i);
+```
+
+
 
 ## Renderers
 
-As TFont is independend and agnostic of an actual graphics environment, an `interface` is needed.
+As TFont is independend and agnostic of an actual graphics environment, an `interface` is needed. 
 
 ---
 ### ShapeCreator
@@ -119,9 +234,9 @@ public interface ShapeCreator {
       void createShape(); // at start of text
       void beginShape(); // for each glyph
       void vertex(float x,float y);
-      void endShape(int mode);
-      void quadraticVertex(float cx, float cy,  float x,float y);
-      void curveVertex(float x,float y); // not called
+      void endShape(int mode); // always CLOSE==2
+      void quadraticVertex(float cx, float cy, float x,float y);
+      void curveVertex(float x,float y); // not used by ttf
       void beginContour(); // glyph holes or components,
       void endContour();
     }
@@ -133,11 +248,11 @@ See the  [Ttf wrapper class for Processing](Ttf.md) for examples.
 
 ---
 ### writeTo
-It is set by
+The rendering targets is set by
 ```Java
 public ShapeCreator writeTo(ShapeCreator s) 
 ```
-Set the `ShapeCreator` for this font. 
+Set the `ShapeCreator` for this font.  
 Returns the previous value.
 
 ---
@@ -146,15 +261,15 @@ Returns the previous value.
 ```Java
 public static void defaultDrawer(ShapeCreator s)
 ```
-  Set the default `ShapeCreator` . This is used if no individual `ShapeCreator` was specified or is `null`
+  Set the default `ShapeCreator` . This is used if no individual `ShapeCreator` for a font was specified or is `null`.  
 Returns the previous value.
 
- --- 
+ 
 ## Credits
 
   Based on the work of 
   
-#### Steve Hanov:
+#### Steve Hanov
 
  
  [Let's read a Truetype font file from scratch](http://stevehanov.ca/blog/?id=143)
@@ -177,7 +292,7 @@ Also the really precise [Unicode FAQ on surrogate encoding]( http://www.unicode.
  - [ ] Metrics in general
  - [ ] Handling of some BIG fonts.
  - [x] Documentation (partially)
- - [ ] Cleanup library & source
+ - [x] Cleanup library & source
  - [ ] Examples
 
 

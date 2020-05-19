@@ -1,0 +1,21 @@
+// fonts in data/fonts for ZenDo
+// #Font#nickname#filename[#line_height_scale]
+    #Font#linear-b#linear-b.ttf#1.2
+    #Font#arkhip#Arkhip_font.ttf#0.8
+    #Font#font#font.ttf 
+    #Font#cousine#Cousine-Regular.ttf 
+    #Font#meslo#MesloLGS-Regular.ttf 
+    #Font#awesome#FontAwesome.ttf
+    #Font#script#AbrazoScriptSSiNormal.ttf
+    #Font#Jakobs#JakobsHandwriting.ttf
+    #Font#slogan#slogan.ttf#0.9 // umlaut
+    #Font#stencil#stencil.ttf#0.7
+    #Font#litho#lithograph.ttf
+    #Font#klingon#BEK.ttf
+    #Font#uni#CODE2001.TTF#0.9 // compose
+    #Font#thin#HuaweiFont-Thin.ttf
+    #Font#times#Time_Roman.ttf
+    
+ 
+
+    

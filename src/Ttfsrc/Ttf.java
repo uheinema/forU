@@ -88,11 +88,13 @@ static public Ttf createFont(String nick, byte[] b)
 
 
   static public Ttf get(String nick) {
+    if(nick==null) return get();
     if (fontCache.containsKey(nick)) {
       return fontCache.get(nick);
     }
     return null;// loadFont(nick, nick);
   }
+  
  static public void remove(String nick) {
     if (fontCache.containsKey(nick)) {
        fontCache.remove(nick);
@@ -114,9 +116,33 @@ static public Ttf createFont(String nick, byte[] b)
     beatNick=t.nick;
   }
   
- 
+   public static float text(Ttf fonttT, String t)
+   {
+     return fonttT.text(t);
+   }
+   
+   // too bad that static and non-static can not have the same namr...
+   public static float renderText(String t)
+   {
+     return get().text(t);
+   }
+   
+   // so back to more processing compatibily
+   public static float text(String t,float x,float y)
+   { 
+     g.translate(x,y,0);
+     float yex = renderText(t);
+     g.translate(-x,-y,0); // push/popMatrix are costly
+     return yex;
+   }
 
-  //@Override 
+   
+   public static float text(String nick, String t)
+   {
+     return get(nick).text(t);
+   }
+   
+  
    Ttf(String name) { 
     //
     // handle loading from assets

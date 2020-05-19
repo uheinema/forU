@@ -119,6 +119,39 @@ Set the default font to `nick`
 Set the default font to `t`
 
 ---
+### text
+
+For rendering the superclass method `text' can be used.
+Ttf offers some static helpers for a purely static use, given here as the source:
+
+```Java
+   public static float text(Ttf fonttT, String t)
+   {
+     return fonttT.text(t);
+   }
+   
+   // too bad that static and non-static can not have the same name...
+   public static float renderText(String t)
+   {
+     return get().text(t);
+   }
+   
+   // so back to more processing compatibily
+   public static float text(String t,float x,float y)
+   { 
+     translate(x,y);
+     float yex = renderText(t);
+     translate(-x,-y); // push/popMatrix are costly
+     return yex;
+   }
+   
+   public static float text(String nick, String t)
+   {
+     return get(nick).text(t);
+   }
+```
+
+---
 ### More methods ...
  For other methods see  [TTFont](TTFont.md) .
 
@@ -157,10 +190,13 @@ PShape getShape(Ttf font, String t, float ts) {
   return sh.text(font,t);
 }
 ```
+Note that `PShapeCreator` is not part of forU.Ttf, but available as [a normal Processing sketch file PShapeCreator.pde](src/Ttfsrc/PShapeCreator.pde) and extremely verbose.
+
+Use it as an example and base for creating your own `ShapeCreator` subclass.
 
 ## Known issues
 
-- Erratic outlines in 3D shapes
+- Some erratic outlines in 3D shapes
 - Texture mapping for 2D not working (not supported by PGraphics?)
 
 ---
