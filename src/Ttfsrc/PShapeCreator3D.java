@@ -7,7 +7,7 @@
  * A simple, platform-agnostic library for handling TrueType fonts.
  * Released under the terms of the GPLv3, refer to: http://www.gnu.org/licenses/gpl.html
  ***************************************************************************************/
- 
+
 package forU.Ttf;
 
 
@@ -23,16 +23,16 @@ public class PShapeCreator3D implements ShapeCreator, PConstants {
   PShape top, bot, strip;
   boolean first=true;
   private PGraphics g;
-  float ex, size;
+  float ex=100, size=100;
   boolean inshape=false, incont=false;
   //boolean odd=false;
   float sx, sy;
   float lx, ly;
 
 
-public PShape text( String t){
-  return text(null,t);
-}
+  public PShape text( String t) {
+    return text(null, t);
+  }
   public PShape text(Ttf fonttT, String t) {
     clear();
     if (fonttT==null) fonttT=Ttf.get();
@@ -66,17 +66,14 @@ public PShape text( String t){
       bot.endContour();
       top.endContour();
     }
-
     if (inshape) 
     {
-      top.endShape();//CLOSE);
-      bot.endShape();//CLOSE);
+      top.endShape(CLOSE);
+      bot.endShape(CLOSE);
     }
     me.addChild(top);
     me.addChild(bot);
     endStrip(CLOSE);
-    // endContour(); // closes
-
     me.setTextureMode(NORMAL);
     inshape=false;
     return me;
@@ -93,7 +90,9 @@ public PShape text( String t){
 
   // treat subsequent shapes as contours for now
   // nobody seems to care for winding order anyhow
-  public  void beginShape() { 
+  public void beginShape() { 
+    if(incont)
+      endContour();
     if (inshape)
       beginContour();
     else {
@@ -106,24 +105,15 @@ public PShape text( String t){
   };
 
   public void vertex(float x, float y) {
-    
-    stripVertex(x, y,true);
+    stripVertex(x, y, true);
   }
 
-
-
-
   private void stripbegin(float x, float y) {
-
     if (strip==null) {
-      // is there s better way??
       boolean ls=g.stroke;
-     // g.pushStyle();
-      //if(stroke) g.noStroke();
       g.stroke=false;
       strip=g.createShape();
       g.stroke=ls;
-     // g.popStyle();
       //strip.beginShape (QUAD_STRIP);
       // we mix curves and rect, and thus have
       // two normals at the same point
@@ -153,14 +143,13 @@ public PShape text( String t){
       Math.abs(x/size), Math.abs((y/size )));
   }
 
-  private void stripVertex(float x, float y,
+  private void stripVertex(float x, float y, 
     boolean withCaps) {
     stripbegin(x, y);
     //println("sv::"+x+" "+y);
     // could determin normals from last vertex?
     // we seem to need at least a fake one
     if (!first) {// postponeed vertex, normals not kmown yet  
-
       PVector n= calcNormal(
         new PVector(lx, ly, 0), 
         new PVector(x, y, 0), 
@@ -170,14 +159,12 @@ public PShape text( String t){
       uvertex(strip, lx, ly, 0);
       uvertex(strip, x, y, 0);
       uvertex(strip, x, y, ex);
-      
     } else {
-      
       first=false;
     }
-    if(withCaps){    
-    uvertex(top, x, y, ex);
-    uvertex(bot, x, y, 0);
+    if (withCaps) {    
+      uvertex(top, x, y, ex);
+      uvertex(bot, x, y, 0);
     }
     lx=x;
     ly=y;
@@ -193,8 +180,8 @@ public PShape text( String t){
     //  vertex(x,y);
     top.quadraticVertex(cx, cy, ex, x, y, ex);
     bot.quadraticVertex(cx, cy, 0, x, y, 0);
-    stripVertex(cx, cy,true);
-    stripVertex(x, y,true);
+    stripVertex(cx, cy, true);
+    stripVertex(x, y, true);
   };
 
 
@@ -202,10 +189,11 @@ public PShape text( String t){
   public void curveVertex(float x, float y) {
     top.curveVertex(x, y, ex);
     bot.curveVertex(x, y, 0);
-    stripVertex(x, y,true);
+    stripVertex(x, y, true);
   };
 
   public void beginContour() { 
+    if(incont) endContour();
     if (strip!=null) {
       endStrip(CLOSE);
     } 
@@ -215,7 +203,7 @@ public PShape text( String t){
   };
 
   public void endContour() {
-    // if(!incont) return;
+    if(!incont) return;
     if (strip!=null) {
       endStrip(CLOSE);
     } 
@@ -226,22 +214,22 @@ public PShape text( String t){
 
   private void endStrip(int mode) {
     if (mode==CLOSE) 
-      stripVertex(sx, sy,false);
+      stripVertex(sx, sy, false);
     strip.endShape();
     me.addChild(strip);
     strip=null;
   };
 
-public float deltaa = 30; // assume ttf coord,
-    // typical 1000 or 2084 unitsPerEm
-    // we are in the characters coord system?
-    // also good for screen
+  public float deltaa = 30; // assume ttf coord,
+  // typical 1000 or 2084 unitsPerEm
+  // we are in the characters coord system?
+  // also good for screen
   public void quadraticVertex(float cx, float cy, 
     float x, float y) {
 
     // guess step count...
 
-    
+
     // steps should depend on target distance,
     // city block distance is good enough
     float d=Math.abs(x-lx)+Math.abs(y-ly);//last.dist(to); PVector
@@ -253,7 +241,7 @@ public float deltaa = 30; // assume ttf coord,
       lx, ly, 
       cx, cy, 
       x, y);
-    stripVertex(x, y,true);
+    stripVertex(x, y, true);
   }
 
   void doQuadSteps(int steps, 
@@ -267,7 +255,7 @@ public float deltaa = 30; // assume ttf coord,
       u+=delta;
       float x=quadraticPoint(p1x, cx, p2x, u);
       float y=quadraticPoint(p1y, cy, p2y, u);
-      stripVertex(x, y,true);
+      stripVertex(x, y, true);
     }
   }
 

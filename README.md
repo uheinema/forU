@@ -1,17 +1,21 @@
 # Work in progress.
 
-As of now (19.05.2020) I can't seem to push to a private repository, so this is public.
+As of now (20.05.2020) I can't seem to push to a private repository, so this is public.
+
 Still working on the docs now, standby
 
-15.05.2020 
+15.05.2020 1
 - [X] Ttf useable (sans examples)
 
-19.05.2020 v0.1
+19.05.2020
 - [x] Ttf ok(so far) and documented
 - [x] Basic examples 
 
-To come:
-- [ ] More examples
+21.05.2020
+- [x] More examples
+- [x] Example description
+
+Todo
 - [ ] UI docs
 - [ ] ...
 
@@ -51,7 +55,7 @@ Up to a [point](#motivation)..
 ## Simple GUI for development and demos
   
   There often is the need for a simple user interface in a sketch, be it during development or to trigger user actions.
-  Available libraries for Processing depend on java.awt etc. or are written in a too modern Java dialect making them impossible to use with [APDE](#apde)
+  Available libraries for Processing depend on nonexisting  java.awt etc. or are written in a too modern Java dialect, making them impossible to use with [APDE](#apde)
   
   
   forU.I will provide that, offering
@@ -75,9 +79,8 @@ Up to a [point](#motivation)..
    }
    
  void draw(){
-    // your drawing code here, eg.
     background(frameCount%255);
-    
+     // your drawing code here
     UI.draw();
 }
 
@@ -95,9 +98,9 @@ void mousePressed() {
  ```
  to display an action button on top of your sketch display.
  
- Add more elements, customize them, connect to your sketch variables, etc..
+ Add more elements, customize them, connect to your sketch variables, subclass etc..
+ 
  ----
- Things can get as complex as you want, including popups.
  
  More to come in the [forU.I Tutorial](UI.md)
  
@@ -108,7 +111,12 @@ void mousePressed() {
  
  (will probably get its own lib)
  
- Procedural textures for Android.
+ ### Procedural textures for Android.
+ 
+  - Executed in the fragment shader
+  - Compiled on the fly from a Forth-like language (ForSH) into GLSL
+  - Piggybacked on PImage.
+  - ...
  
  ![Sample ForTex screenshot](fortex.jpg)
  
@@ -127,6 +135,17 @@ void mousePressed() {
   or
   - [Pattern Collections](https://pattern-collections.com/)
   drawings.
+- Patterns are defined in Forth-flavoured layered script language.
+  - class Doodle - "Pen and paper,;and Zen",
+    - Implements [ShapeCreator](TTFont.md#shapecreator)
+     - Linear and nonlinear(!) transformations
+     -  "Aura" , clipping, ....
+   - class ForZen - 'Brain and hand'
+     - Script evaluation
+     - Callback implementations like
+       -  #second
+       - #Text
+       - ...
 - Double line elimination 
 - optimized GCODE generation 
 - use a clothpin and a M3 screw to upgrade your 3D-Printer to a pen plotter.
@@ -135,6 +154,23 @@ void mousePressed() {
 ![Ugly ForZen screenshot](forzen.jpg)
 
 # This and that ...
+
+## Installation
+
+ - Unzip into
+   - `Sketchbook/libraries/forU`
+  so that ypu get  
+    - `Sketchbook/libraries/forU'/library/`
+    - `Sketchbook/libraries/forU/library-dex/`
+    - `Sketchbook/libraries/forU'/examples/`
+    - etc. pp.
+ - or install from APDE by
+    - Tools
+    - Import Library
+    - Manage libraries
+    - Install compressed library
+    - ...
+
  
  ## Credits
  
@@ -172,35 +208,58 @@ MarkDown and
 put back the fun.
 Tnx.
 
+#### Emmanuel Pil
+
+If I had found his 
+>Functions Utilities Widgets for Processing Android  
+>Without third party libraries.
+
+a year before, much of this would not have been written...still, it is a completely different approach. Tnx for the clipboard example.
+
+[https://github.com/EmmanuelPil/Android-java-code-utilities-widgets-for-Processing-for-Android]()
+
 #### Other Tools
+
+Some essential, some mandatory, some recommended:
 
 - Google
 
-You know how that works, so:
-
+You know how that works, so
+- Processing
 - TrueCommander
-
 - DiffTools
-
 - QuickEdit
+- GitHub
+-  ...
 
 ## Motivation
 
 Why did I create these libraries?
 
-- I just could not find one fitting on my cart in the usual places or for an affordable price. So I made my own, and along the way realized others having the same problems might find the method useful for their purpose. So here you are.
+- I just could not find one fitting on my cart in the usual places or for an affordable price. So I made my own, and along the way realized others having the same problems might find them useful for their purpose. So here you are.
 - All libraries I found on the web were either/or
   - Not in a Java dialect compatible with APDE
   - Not useable on Android
   - Not in Java
   - ...
-- I have always hated to be dependend on components for which no source is available and recompilable by me.  All to often they just disappear at some time, become incompatible with progress or are buggy to start with...not saying that is not true for this library, but I preffer to fix my own bugs over hunting down (and trying to work around) somebody elses. The ones you find here are all mine and not to ne blamed on the [credits](#credits)
+- I have always hated to be dependend on components for which no source is available and recompilable by me.  All to often they just disappear at some time, become incompatible with progress or are buggy to start with...not saying that is not true for this library, but I preffer to fix my own bugs over hunting down (and trying to work around) somebody elses. The ones you find here are all mine and not to be blamed on the [credits](#credits)
 - Accordingly, some pains were taken to
   -  make the key components as independend  as possible, while
-  -  providing an API as simple as possible. See [TTFont/Ttf](#foruttf)
+  -  providing an API and interfaces as simple as possible. See [TTFont/Ttf](#foruttf)
+  - make classes expandable
   
-Oh, and it's a cartwheel, not a Formula1-tire - not intended for a race against hardware/bitmap backed operating system functions..but reliable bronce-age desig.
+Oh, and it's a cartwheel, not a Formula1-tire - not intended for a race against hardware/bitmap backed operating system functions..but reliable bronce-age design.
 
+
+## System
+
+```
+Android 10 / API 29
+Baseband Version: 21C20B377S000C000,21C20B377S000C000
+Build Number: YAL-L61 10.0.0.200(C431E3R1P2)
+Linux Kernel Version: 4.14.116
+Http User Agent: Dalvik/2.1.0 (Linux; U; Android 10; YAL-L21 Build/HUAWEIYAL-L61)
+```
 
 ## License
 

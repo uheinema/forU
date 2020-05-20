@@ -30,11 +30,12 @@ void setup()
   textSize(32);
 
   new UI(this, 64);
- 
+ //Button.defaultBackcolor=color(233,44,55);
  bgcolor= new ColorPicker(color(230));
   
  // tf=new Text("Enter");
   //Actor a= UI.tos();// new Actor();
+  
   UI.label("UI test").br()
     .add("choose", "choose")
     .add("simple", "simple").br()
@@ -44,14 +45,11 @@ void setup()
     .add("synth", "test")
   //  .add(bgcolor)
     .add(tf);
-  // addli(a);
+  addli(UI.tos());
   // new DragBack().show();
   //a.show();
 
 }
-
-
-
 
 void pick() {
   bgcolor.show();

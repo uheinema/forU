@@ -55,7 +55,7 @@ new Ttf(this);
 ---
 ## Font creation/loading
   
-There are no explicit constructors for a Ttf (ok, there are, for the benefit of.subclasses only)
+There are no explicit constructors for a Ttf (ok, there are, but for the benefit of subclasses only)
 
  Instead, use the following static functions:
 
@@ -88,7 +88,8 @@ This font becomes the default font.
 static public Ttf get(String nick)
 ```
 Return the font with this nickname previously loaded with `createFont`
-~~If nick is `null`, the default font is returned.~~
+
+If nick is `null`, the default font is returned.
 
 ---
 ```Java
@@ -196,11 +197,16 @@ Use it as an example and base for creating your own `ShapeCreator` subclass.
 
 ## Known issues
 
-- Some erratic outlines in 3D shapes
-- Texture mapping for 2D not working (not supported by PGraphics?)
+- [x] Some erratic outlines in 3D shapes
+- [ ] Texture mapping for 2D not working (not supported by PGraphics?)
+- [ ] Normals for front/back face not ok for some fonts?
+
+## Todo
+
+- [ ] Add textAlign, textWidth,...
 
 ---
-to be continued 15.05.2020
+to be continued 21.05.2020
 
 [Back](README.md)
 

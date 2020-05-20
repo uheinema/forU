@@ -242,7 +242,7 @@ public interface ShapeCreator {
     }
 ```
 In the most simple case, just pass them on to whatever ' canvas' or ' graphics context' or..
-[PGraphics](src/TrueWords/ShapeDrawer.java)
+[PGraphics](src/Ttfsrc/ShapeDrawer.java)
 
 See the  [Ttf wrapper class for Processing](Ttf.md) for examples.
 
@@ -278,6 +278,8 @@ Returns the previous value.
  > By Steve Hanov  
 >  Released to the public domain on April 18, 2020
 
+which has been expanded for OTF by now. 
+
 #### Apple
 
  [TrueType Reference Manual](
@@ -285,15 +287,28 @@ https://developer.apple.com/fonts/TrueType-Reference-Manual/)
 
 #### Unicode
 Also the really precise [Unicode FAQ on surrogate encoding]( http://www.unicode.org/faq//utf_bom.html#utf16-3)
+
+#### Sample Fonts
+
+The fonts used in the examples were found flying around on my phone or downloaded from
+> This font was downloaded from  
+Free Fonts Download 
+> http://www.freefontsdownload.net   
+> Thank you for download
+ 
+ A treasure trove.
  
 ## Todo
  
  - [ ] Kerning
  - [ ] Metrics in general
- - [ ] Handling of some BIG fonts.
- - [x] Documentation (partially)
- - [x] Cleanup library & source
- - [ ] Examples
+ - [x] Handling of some BIG fonts. (that worked before , fixed)
+ - [ ] Some erratic outlines on overlapping round glyphs ( a [Ttf](Ttf.md) issue, actually)
+ - [x] Documentation (mostly)
+ - [ ] Document logging & other internals
+ - [x] Cleanup library & source (ongoing)
+ - [x] Examples (very basic)
+ - [ ] Example documentation/Tutorial
 
 
 

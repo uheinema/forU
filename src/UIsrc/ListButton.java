@@ -8,27 +8,27 @@ public class ListButton extends Button//Actor
   //extends IntDict ???
   //mplements Interact
 {
-  //    void setup(){
-  //      bu.add("Hallo");
-  //    }
   private IntDict di;
   public boolean extend=true;
   public int selline=0;
+  public int lts=(11*ts)/8;
+
+  public int oddcol=0x31122334; // dark transpatent
 
   public ListButton(String s, String a) {
     // title=s;
     super(s, a);
-    h=ts*4+1;
+    h=lts*4+1;
     w=me.width-100;
     di=new IntDict();
   };
 
-  public ListButton(String s,String a,String[] cont,int lines){
-    this(s,a);
+  public ListButton(String s, String a, String[] cont, int lines) {
+    this(s, a);
     setDict(cont);
     setLines(lines);
   }
-  
+
   public ListButton(String s, String a, Object o) {
     // title=s;
     this(s, a);
@@ -40,19 +40,12 @@ public class ListButton extends Button//Actor
   }
 
   public ListButton setSize(int wi, int he) {
-    lines=PApplet.floor(he/ts);
-    int hh=lines*ts;
+    lines=PApplet.floor(he/lts);
+    int hh=lines*lts;
     super.setSize(wi, hh);
     return this;
   }
 
-  //    List setDict(IntDict _di,int lo){
-  //      di=_di;
-  //      lineofs=lo;
-  //      // set this?
-  //      selline=lineofs;//??
-  //      return this;
-  //    }
 
   public ListButton setDict(IntDict _di) {
     di=_di;
@@ -63,23 +56,23 @@ public class ListButton extends Button//Actor
     return this;
   }
 
-   public ListButton setDict(String [] cont){
-     di=new IntDict();
-     int i=1;
-     for(String s:cont){
-      di.add(s,i++);
+  public ListButton setDict(String [] cont) {
+    di=new IntDict();
+    int i=1;
+    for (String s : cont) {
+      di.add(s, i++);
     }
     return setDict(di);
-   }
-   
-  public IntDict getDict(){
+  }
+
+  public IntDict getDict() {
     return di;
   }
-   
+
   public ListButton setSelect(int i) {
     selline=i;
     if (selline<lineofs) {
-      lineofs=0;
+      lineofs=selline;
     }
     if (selline>lineofs+lines) {
       lineofs=selline;
@@ -98,58 +91,65 @@ public class ListButton extends Button//Actor
   }
 
 
-  int get(int i) {
+  public int get(int i) {
     return di.value(i);
   }
 
-  int get(String s) {
+  public int get(String s) {
     return di.get(s);
   }
 
   public ListButton setLines(int l) {
     lines=l;
-    h=lines*ts;
+    h=lines*lts;
     return this;
   }
 
   private 
-  
-  int lines=1;
-  int dragStart,dragsx;
+
+    int lines=1;
+  int dragStart, dragsx;
   int lineofs=0;
-  int xoffs=0;
-  
+  int xoffs=0; 
+  private int pixofs=0;
+
   @Override
-  public void drawFront() {
+    public void drawFront() {
     int line=-1;
     int cy=0;
+
+    g.pushStyle();
+    g.pushMatrix();
 
     g.fill(0);
     g.textAlign(LEFT, TOP);
     g.textSize(ts);
-    g.text(txt, x+20, y+cy);
-    
-    cy+=ts;
-    g.pushStyle();
-    g.pushMatrix();
+    g.text(txt, x+ts/2, y+cy+ts/4); // ??
+    cy+=lts;  
     g.imageMode(CORNER);
     g.clip(x, y+cy, w, h-cy);
     //    println("list: "+lines);
     for (line=-1; line<lines+1; line++) {              
-    //  g.fill(222);   
+      //  g.fill(222);   
       String lt="";
       int ll=line+lineofs;
       if (ll<di.size()&&ll>=0) {
         lt=di.key(ll);
         if (ll==selline) {
           g.fill(0);
-          g.rect(x, y+cy+pixofs-ts, w, ts);
+          g.rect(x, y+cy+pixofs-lts, w, lts);
           g.fill(200);
-        } else
+        } else {
+          if (oddcol!=0&&(ll%2)==0) {
+            g.fill(oddcol);
+            g.rect(x, y+cy+pixofs-lts, w, lts);
+          }
+
           g.fill(textcol);
-        g.text(lt, x-xoffs+20, y+cy+pixofs-ts);
+        }
+        g.text(lt, x-xoffs+ts, y+cy+pixofs-lts+ts/4);
       }
-      cy+=ts;
+      cy+=lts;
       if (cy-ts>h) break;
     }
     g.clip(0, 0, me.width, me.height);
@@ -157,18 +157,16 @@ public class ListButton extends Button//Actor
     g.popMatrix();
   }
 
-  private int pixofs;
-
   public void drag() {
     if (!dragging) return; // never?
     int dragDist=me.mouseY-dragStart;
     int dragDistx=me.mouseX-dragsx;
     //dragStart=
-    int dl=PApplet.round(dragDist/ts);
+    int dl=PApplet.round(dragDist/lts);
     if (dl!=0) {
       dragged=true;
     }
-    xoffs=clamp(xoffs-dragDistx,0,10000);
+    xoffs=clamp(xoffs-dragDistx, 0, 10000);
     dragsx+=dragDistx;
     if (lineofs<=0&&dragDist>0) {
       dragDist=0; 
@@ -179,10 +177,10 @@ public class ListButton extends Button//Actor
       dragDist=0;
     }
     lineofs-=dl;    
-    dragStart+=ts*dl;
+    dragStart+=lts*dl;
 
     // else  dragDist=0; // lock whole lines
-    pixofs=dragDist%ts;     
+    pixofs=dragDist%lts;     
     super.drag();//??
   }
 
@@ -193,12 +191,11 @@ public class ListButton extends Button//Actor
   }
 
   @Override
-   public boolean mousePressed()
+    public boolean mousePressed()
   {
     dragging=true; // wait until end of interaction
     dragStart=me.mouseY;
-    dragsx=me
-    .mouseX;
+    dragsx=me.mouseX;
     dragged=false;
     //  pixofs=0;
 
@@ -214,31 +211,31 @@ public class ListButton extends Button//Actor
     //  println("rel ",lines);
     if (!dragged) {
       // only do this on clicks
-      if (h<=ts) {
-        h=lines*ts;
-       // PApplet.println("extend");
+      if (h<=lts) {
+        h=lines*lts;
+        // PApplet.println("extend");
       } else {
         int ly=me.mouseY-y-pixofs;
-        ly/=ts;
+        ly/=lts;
 
         if (ly!=0) {     
           selline=ly+lineofs-1;
           act(ly+lineofs);
         } else {
           act(-1);
-        if (extend)
-            h=ts; // collapse
+          if (extend)
+            h=lts; // collapse
         }
       }
     }
     dragged=false;
   }
-  
-  public ListButton collapse(boolean small){
-    if(small)
-      h=ts;
+
+  public ListButton collapse(boolean small) {
+    if (small)
+      h=lts;
     else
-      h=lines*ts;
+      h=lines*lts;
     return this;
   }
 }

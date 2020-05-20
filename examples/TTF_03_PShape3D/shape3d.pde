@@ -14,6 +14,7 @@ String theFont = "Arkhip_font.ttf" ;
 
 Ttf fontT;
 PShapeCreator3D extruder;
+PShape hello,world;
 
 PImage jupiter; // as texture
 
@@ -28,27 +29,30 @@ void setup()
 
   fontT=Ttf.createFont("test", theFont);
   // makes it the default font, too;
+  extruder=
+    new PShapeCreator3D (g, 500, 100); // size,depth
+ 
+  fill(255);
+  stroke(0);
+  strokeWeight(6);
+  hello=extruder.text("Hello"
+    //+"\n "+frameCount
+    );
+  hello.translate(-hello.getWidth()/2, 0, 0);
+ 
+  noStroke();
+  world=extruder.text("World");
+  world.translate(-world.getWidth()/2, 0, 0);
+  world.rotateY(PI);
+  world.setTexture(jupiter);
 }
 
 void draw3D() {
   // lets get fancy
   pushMatrix();
   
-  fill(255);
-  noStroke();
-
+  
   translate(width/2, height/2+200, -500);
-
-  PShapeCreator3D extruder=
-    new PShapeCreator3D (g, 500, 100); // size,depth
-  PShape hello=extruder.text("Hello"
-    //+"\n "+frameCount
-    );
-  hello.translate(-hello.getWidth()/2, 0, 0);
-  PShape world=extruder.text("World");
-  world.translate(-world.getWidth()/2, 0, 0);
-  world.rotateY(PI);
-  world.setTexture(jupiter);
 
   rotateX(0.3);
   rotateY(frameCount*0.07);

@@ -3,11 +3,11 @@
 
 // if in preview, assets are in internal storage
 
-String [] listAssetsX(String path) {
+String [] listAssetsX(String path,String filter) {
   if (isPreview()) 
-    return listFiles(sketchPath(path));
+    return listFiles(sketchPath(path),filter);
   else
-    return listAssets(path,NODIRS);
+    return listAssets(path,NODIRS); // todilo: filyer
 }
 
 

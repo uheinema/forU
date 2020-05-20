@@ -13,19 +13,17 @@ import android.content.Context;
 public class Button extends I //
   implements Interact, PConstants
 {
-
+  public static int defaultBackcolor =0xffffffff;
+  public int backcolor= defaultBackcolor;
   
-
-  //lass color extends Int {};
-
-
-
-  public int              
-    backcol= 0xffffffff;
-  public int smarkcol= 0xffffff00;
+  public static int defaultSmarkcol = 0xffffff00;
+  public int smarkcol=defaultSmarkcol;
+  
   public int sbackcol= 0xff505059;
-  public int
-    textcol= 0;
+  
+  public static int defaultTextcol =0xff000000;
+  public int textcol = defaultTextcol;
+  
   public int boncol= 0xff990099;
   public int  boffcol=0;
   public int
@@ -56,7 +54,8 @@ public class Button extends I //
   //int rx, ry;
   boolean dragging;
   PImage tex;
-  public int backcolor=backcol;
+  
+  
   public boolean unitsquare=false;
 
 
@@ -164,7 +163,7 @@ public class Button extends I //
     } else if (state)
       g.fill(sbackcol);
     else // small, off
-    g.fill(backcolor);
+      g.fill(backcolor);
 
     g.noStroke();
     g.rectMode(CORNER);

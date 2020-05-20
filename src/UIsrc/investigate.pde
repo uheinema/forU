@@ -6,12 +6,14 @@ import java.lang.reflect.*;
 ListButton li;
 
 void addli(Actor a) {
-  String mett= "wurst";
+  String mett= "java.lang.reflect.Field";
   //println( android.R.style.Theme_Translucent_NoTitleBar);
   //java.lang.reflect.Field";
   li= new ListButton(mett, "", 
     printMethods(mett)
     , 20);
+  //li.oddcol=202;
+ // li.backcolor=250;
   a.add(li);
   li.collapse(true);
 }

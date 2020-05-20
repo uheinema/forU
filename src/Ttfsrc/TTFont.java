@@ -276,12 +276,14 @@ public class TTFont implements Cmap {
   };
 
   private int getGlyphOffset(int index) {
-    // logprintln("szstt glyphoffset "+ index);
+  //  logprintln("szstt glyphoffset "+ index);
     // assert("loca" in this.tables);
     Table table = this.tables.get("loca");
     // println("table "+table.tag+" offset="+table.offset);
     int offset, next;
+    
     if (this.indexToLocFormat == 1) {
+      
       fileseek(table.offset + index * 4);
       offset = filegetUint32();
       next = filegetUint32();
@@ -290,11 +292,12 @@ public class TTFont implements Cmap {
       offset = filegetUint16() * 2;
       next = filegetUint16() * 2;
     }
+  //  logprintln("infextoloc "+this.indexToLocFormat);
     if (offset == next) {
       // indicates glyph has no outline( eg space)
       return 0;
     }
-    // logprintln("Offset for glyph index "+index+" is "+offset);
+  // logprintln("Offset for glyph index "+index+" is "+offset);
     return offset + this.tables.get("glyf").offset;
   }
 
@@ -379,10 +382,13 @@ public class TTFont implements Cmap {
       offset = getGlyphOffset(index); 
       numberOfContours=0;
       if (offset==0) return;
-      if (offset >= tables.get("glyf").offset
-        + tables.get("glyf").length) 
+      long endgt=tables.get("glyf").offset
+        + tables.get("glyf").length ;
+      if (offset >= endgt) 
       { 
-        logprintln(" glyph offset too lreturn null");
+        logprintln(" glyph offset "+offset+" oob "+endgt);
+        // throw?
+        return;
       }
       // assert(offset >= this.tables["glyf"].offset); 
       // assert(offset < this.tables["glyf"].offset + this.tables["glyf"].length); 
@@ -540,7 +546,7 @@ public class TTFont implements Cmap {
       py = new float[1000];// resize later
       flags = new int[1000];
       int pi = 0;
-      logprintln("start compound");
+   //   logprintln("start compound");
       while ((flag & MORE_COMPONENTS)!=0) {
 
 
@@ -550,7 +556,7 @@ public class TTFont implements Cmap {
           filegetUint16()
 
           );
-        logprintln("sibgluph "+component.glyphIndex);
+      //  logprintln("sibgluph "+component.glyphIndex);
         { 
           int arg1, arg2;
           if ((flag & ARG_1_AND_2_ARE_WORDS)!=0) {
@@ -560,13 +566,13 @@ public class TTFont implements Cmap {
             arg1 = filegetUint8();
             arg2 = filegetUint8();
           }
-          logprintln("args :"+arg1+' '+arg2);
+       //   logprintln("args :"+arg1+' '+arg2);
           if ((flag & ARGS_ARE_XY_VALUES)!=0) {
-            logprintln("xyvalues");
+         //   logprintln("xyvalues");
             component.e = arg1;
             component.f = arg2;
           } else {
-            logprintln("index");
+        //    logprintln("index");
             // what are these for?
             component.destPointIndex = arg1;
             component.srcPointIndex = arg2;
@@ -626,8 +632,8 @@ public class TTFont implements Cmap {
         file.position(filegetUint16() + file.position());
         // skip, for whatever reason
       }
-      logprintln("total contours : "+numberOfContours 
-        +  " points: " +pi);
+   //   logprintln("total contours : "+numberOfContours 
+   //     +  " points: " +pi);
     }
 
     /****** end compound */
@@ -877,7 +883,8 @@ public class TTFont implements Cmap {
       // 2x segcount
       int segCount = getUint() / 2;
       segments = new Segment[segCount];
-
+ // logprintln("len "+length+" lang  "+language+ " segs "+segCount);
+      readSearchHints();
       // Ending character code for each segment, last is 0xffff
       for (i = 0; i < segCount; i++) {
         segments[i]=new Segment();
@@ -922,6 +929,7 @@ public class TTFont implements Cmap {
           } else {
             index = (segment.idDelta + charCode) & 0xffff;
           } 
+    //      logprintln("gi "+charCode+"->"+index);
           return index;
         }
       }     
@@ -966,7 +974,7 @@ public class TTFont implements Cmap {
 
       int segCount = getUint() ;
       segments = new Segment[segCount];
-   //   logprintln("len "+length+" lang  "+language+ " segs "+segCount);
+  
 
       // Ending character code for each segment, last is 0xffff
       for (i = 0; i < segCount; i++) {

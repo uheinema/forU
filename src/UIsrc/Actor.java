@@ -311,7 +311,7 @@ public class Actor extends Button
   
 }
 
-class Label extends Button {
+public class Label extends Button {
   
    @Override
    public void drawBack(){;};

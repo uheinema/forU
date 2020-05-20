@@ -1,16 +1,17 @@
 
 import forU.I.*;
+
 ListButton li; 
 String path="shaders"; // should always be there
+// try path= "" 
 String [] slist;
 
 void setup() {
   fullScreen(P3D);
-  println("hi");
   textSize(32); // Do this ALWAYS just after fullScreen/size
   // or somehow characters start to diappear
 
-  new UI(this, 64); // default text size
+  new UI(this, 80); // default text size
   slist=listAssets(path,NODIRS);
   // create ui elements only after UI is initialized!
   li=new ListButton(
@@ -19,7 +20,7 @@ void setup() {
     slist, // content
     20); // number of lines
   UI
-    .add("hello", "world") // just a plain button     
+    .add("close", "world") // just a plain button     
     .add(li)
     ;
 }
