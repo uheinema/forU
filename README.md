@@ -42,13 +42,15 @@ Up to a [point](#motivation)..
 
   - Can read fonts with CMAP formats
     - 12 - Full UTF-32 coverage ( Yep, linear-b: 𐂂 if you don't see a deer head, your browser is not supporting the full UTF32 charset...)
-    - 4 -:UTF-16
+    - 4 - UTF-16
     - 0 - ASCII
  - Base class [TTFont]( TTFont.md ) without dependencies.
 - Wapper class [Ttf]( Ttf.md ) for Processing/Android/APDE convenient use. Allows to 
   - Draw to any `PGraphics` (with Glyph outline stroked!)
   - Create a 2D `PShape` 
   - Create a 3D extruded `PShape` 
+  
+  ![shape3d](shape3d.jpg)
   
 # forU.I
   
