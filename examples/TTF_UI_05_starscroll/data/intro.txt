@@ -1,0 +1,23 @@
+ 
+
+
+ Compare scrolling text 
+    ----   Native Pfont ----
+   ----  Ttf 2D Outlines ----
+    ----  Ttf 3D Shapes ---
+
+   
+  Also note how the buttons
+  are tied into a radio group
+   and coupled to the slider.
+
+         Demo for  forU
+     
+ https://github.com/
+   uheinema/forU
+
+ Ullrich Heinemann 2020
+    
+        
+    
+
