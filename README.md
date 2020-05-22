@@ -18,7 +18,7 @@ Still working on the docs now, standby
 Todo
 - [ ] UI docs
 - [ ] ...
-
+http://www.celestiamotherlode.net
 
 # forU
 

@@ -28,14 +28,16 @@ class Scroller {
   }
 
   color visualColor(float t) {
-    return color(255);/*
-    color c=color(155, 155, 255, 255*t);
-    if (g.fill)
-      fill(c);
-    if (g.stroke) {
-      stroke(c);
-    }
-    return c;*/
+   // return color(255);
+    float a;
+    a=(t<0.5)?(t*2):1;
+    color c=color(255, 255, 155, a*255);
+//    if (g.fill)
+//      fill(c);
+//    if (g.stroke) {
+//      stroke(c);
+//    }
+    return c;
   }
 
   void rota(float outhi) { // for @Override
@@ -59,15 +61,22 @@ class Scroller {
     else
       Ttf.textSize(ts);
     for (int i=0; y<height&&i<100; i++) {
-      visualColor((y-pixofs)/height);
+      color c=visualColor((y-pixofs)/height);
 
       //   stroke( 255*(y/height));
       String t=txt[(li+i)%txt.length];
       float h=ts;
-      if (nati.state) 
+      if (nati.state) {
+        fill(c);
+        noStroke();
         text(t, 0, y);
+      }
       else 
+      {
+        stroke(c);
+        noFill();
         Ttf.text(t+"\n", 0, y);
+      }
       if (i==0) flh=h;
       y+=h;
       //   translate(0, h, 0);
@@ -76,7 +85,3 @@ class Scroller {
     popStyle();
   }
 }
-
-
-
-

@@ -28,7 +28,7 @@ String theFont[] = {
 Switch nati, outline, x3D;
 Slider sli;
 
-Slider bsrad=new Slider("Z #    .","",0f);
+Slider param=new Slider("Z #    .","",1f);
 
 Ttf fontT;
 PFont font,fontP;
@@ -59,16 +59,18 @@ void setup()
   x3D=new Switch("3D", "xn#3", true);
   sli=new Slider("Radio ", "xn#0", 3f);
   sli.range(1, 3, 1); 
-  bsrad.range(-4000,5000,0);
+  param.range(0.1,5000,0).logarithmic=true;;
   
   UI
     .add(nati)
     .add(outline)
     .add(x3D)
-    .add(sli);
-   // .add(bsrad);;
+    .add(sli)
+  // .add(param)
+   ;
   stars=loadImage("randomsky.jpg");// "ldem_3_8bit.jpg" );
-  moon=loadImage( "ldem_3_8bit.jpg"
+  moon=loadImage("DS_BODY.JPG"
+   //"ldem_3_8bit.jpg"
    //"earth.jpg" 
    );//"jupiter.jpg");
   //frameRate(11);
@@ -81,6 +83,7 @@ void setup()
   fill(color(223,200,200));
   moonsphere= createShape( SPHERE ,g.width);
   moonsphere.setTexture(moon);
+  moonmat();
   sphereDetail(6);
   fill(color(203,203,234));
   starsphere= createShape( SPHERE ,g.width*2.6);
@@ -98,7 +101,37 @@ void xn(int which) {
   sli.value=which;
 }
 
+
+ color co(float r,float g, float b){
+   return color(r*255,g*255,b*255);
+ }
+ 
+void Ka(float r,float g, float b){
+  moonsphere. setAmbient (co(r,g,b));
+}
+void Kd(float r,float g, float b){
+  moonsphere. setFill(co(r,g,b));
+}
+void Ks(float r,float g, float b){
+  moonsphere. setSpecular(co(r,g,b));
+}
+
+void moonmat(){
+Ka( 0.584314 ,0.584314 ,0.584314);
+Kd (0.584314 ,0.584314 ,0.584314);
+Ks (0.898039, 0.898039 ,0.898039);
+moonsphere. setShininess(param.value);
+}
+
+/*
+setEmissive
+setFill
+setSpecular
+setShininess
+*/
+
 void draw() {
+  //moonmat();
   background(0);
   pushMatrix();
   lights();
@@ -113,7 +146,7 @@ void draw() {
   
   tint(100);
   moonsphere.rotateY(0.0005);
-  moonsphere.rotateX(0.001);
+  moonsphere.rotateX(0.003);
   starsphere.rotateX(0.0005);
   
   //scale(bsrad. value);

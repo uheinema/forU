@@ -44,7 +44,7 @@ class Scroller3D extends Scroller {
       String tx=txt[dl];
       s=extruder.text(tx);
       // s.enableStyle();//???
-     // s.setTexture(stars);
+     // s.setTexture(moon);
       lshapes[dl]=s;
       
     }
@@ -74,9 +74,10 @@ class Scroller3D extends Scroller {
       float t=(y-pixofs)/height;
       color c= visualColor(t);
       s=createShape(dl);
+      s.setFill(c);
       g.translate(0, ts, 0);
       s.setFill(c);
-      s.noStroke();
+      s.setStroke(false);
       s.setAmbient(c);
       s.draw(g);
       y+=ts;
