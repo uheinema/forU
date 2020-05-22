@@ -1,33 +1,18 @@
 # Work in progress.
 
-As of now (20.05.2020) I can't seem to push to a private repository, so this is public.
+As of now (22.05.2020) I can't seem to push to a private repository, so this is public. [State of the Library](#notes)
 
-Still working on the docs now, standby
-
-15.05.2020 1
-- [X] Ttf useable (sans examples)
-
-19.05.2020
-- [x] Ttf ok(so far) and documented
-- [x] Basic examples 
-
-21.05.2020
-- [x] More examples
-- [x] Example description
-
-Todo
-- [ ] UI docs
-- [ ] ...
-http://www.celestiamotherlode.net
 
 # forU
 
 #### Assorted Java libs made with/for [APDE](#apde)
 
-- [Ttf](#foruttf) -Truetype font handling 
-- [I](#forui) - Simple user interface
-- [ClipDraw](#foruclipdraw) - Clipping with arbitrary region 
-- [ForTex](forufortex) - Procedural texture generation
+- [x]  [Ttf](#foruttf) -Truetype font handling 
+- [x] [I](#forui) - Simple user interface (no docs)
+- [ ] [ClipDraw](#foruclipdraw) - Clipping with arbitrary region 
+- [ ] [ForTex](forufortex) - Procedural texture generation
+- [ ] Mold and seal generation
+- [ ] ...
 
 #### Am I reinventing the wheel?  
 
@@ -76,7 +61,7 @@ Up to a [point](#motivation)..
   void setup(){
      fullScreen(P3D);
      textSize(32); // DONT remove.
-     new UI(this, 64); // default text size
+     new UI(this, 64); // default button text height
      UI.add("hello","world"); // just a plain button, for now.
    }
    
@@ -100,11 +85,11 @@ void mousePressed() {
  ```
  to display an action button on top of your sketch display.
  
- Add more elements, customize them, connect to your sketch variables, subclass etc..
+ Add more elements, customize them, connect to your sketch variables, subclass, add menus, popups etc..
  
  ----
  
- More to come in the [forU.I Tutorial](UI.md)
+ More to come in the [forU.I Tutorial](Examples.md)
  
  ----
  # Soon to come
@@ -141,7 +126,7 @@ void mousePressed() {
   - class Doodle - "Pen and paper,;and Zen",
     - Implements [ShapeCreator](TTFont.md#shapecreator)
      - Linear and nonlinear(!) transformations
-     -  "Aura" , clipping, ....
+     -  "Aura" , reserving and restricting to regions, clipping, ....
    - class ForZen - 'Brain and hand'
      - Script evaluation
      - Callback implementations like
@@ -150,7 +135,7 @@ void mousePressed() {
        - ...
 - Double line elimination 
 - optimized GCODE generation 
-- use a clothpin and a M3 screw to upgrade your 3D-Printer to a pen plotter.
+- use a clothes pin and a M3 screw to upgrade your 3D-Printer to a pen plotter.
 - now  you see what this lib was created for
 
 ![Ugly ForZen screenshot](forzen.jpg)
@@ -216,7 +201,7 @@ If I had found his
 >Functions Utilities Widgets for Processing Android  
 >Without third party libraries.
 
-a year before, much of this would not have been written...still, it is a completely different approach. Tnx for the clipboard example.
+a year before, much of this would not have been written...still, it is a completely different approach. Tnx for the clipboard and popup menu example.
 
 [https://github.com/EmmanuelPil/Android-java-code-utilities-widgets-for-Processing-for-Android]()
 
@@ -225,18 +210,21 @@ a year before, much of this would not have been written...still, it is a complet
 Some essential, some mandatory, some recommended:
 
 - Google
+- Processing
+- GitHub
 
 You know how that works, so
-- Processing
+
 - TrueCommander
 - DiffTools
 - QuickEdit
-- GitHub
 -  ...
 
 ## Motivation
 
 Why did I create these libraries?
+
+#### Reinventing the wheel?
 
 - I just could not find one fitting on my cart in the usual places or for an affordable price. So I made my own, and along the way realized others having the same problems might find them useful for their purpose. So here you are.
 - All libraries I found on the web were either/or
@@ -244,13 +232,13 @@ Why did I create these libraries?
   - Not useable on Android
   - Not in Java
   - ...
-- I have always hated to be dependend on components for which no source is available and recompilable by me.  All to often they just disappear at some time, become incompatible with progress or are buggy to start with...not saying that is not true for this library, but I preffer to fix my own bugs over hunting down (and trying to work around) somebody elses. The ones you find here are all mine and not to be blamed on the [credits](#credits)
+- I have always hated to be dependend on components for which no source is available and recompilable by me.  All to often they just disappear at some time, become incompatible with progress or are buggy to start with...not saying that is not true for this library, but I preffer to fix my own bugs over hunting down (and then trying to work around instead of fixing) somebody elses. The ones you find here are all mine and not to be blamed on the [credits](#credits)
 - Accordingly, some pains were taken to
   -  make the key components as independend  as possible, while
   -  providing an API and interfaces as simple as possible. See [TTFont/Ttf](#foruttf)
   - make classes expandable
   
-Oh, and it's a cartwheel, not a Formula1-tire - not intended for a race against hardware/bitmap backed operating system functions..but reliable bronce-age design.
+Oh, and it's a cartwheel, not a Formula1-tire - not intended for a race against hardware/bitmap backed operating system functions..but reliable bronce-age design - robust enough, see the 'TTF_UI_05_starscroll` example in  [examples](Examples.md)
 
 
 ## System
@@ -268,11 +256,13 @@ Http User Agent: Dalvik/2.1.0 (Linux; U; Android 10; YAL-L21 Build/HUAWEIYAL-L61
 ```Java
 /***************************************************************************************
  * forU.Ttf
+ * forU.I
  * Copyright (c) 2019-2020 by the author
  * @author Ullrich Heinemann , https://github.com/uheinema
  *
  * All rights reserved. 
- * A simple, platform-agnostic library for handling TrueType fonts.
+ * Ttf - A simple, platform-agnostic library for handling TrueType fonts.
+ * I - Easy to use lightweight user interface
  * Released under the terms of the GPLv3, refer to: http://www.gnu.org/licenses/gpl.html
  ***************************************************************************************/
 ```

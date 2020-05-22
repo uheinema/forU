@@ -53,7 +53,7 @@ void setup()
   textFont(font);
 
   new UI(this,77);
-  Button.defaultTextcol=#765148;
+  Button.defaultTextcolor=#765148;
   nati=new Switch("PFont", "xn#1", false);
   outline=new Switch("Outline", "xn#2", false);
   x3D=new Switch("3D", "xn#3", true);

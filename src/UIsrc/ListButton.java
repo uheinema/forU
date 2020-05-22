@@ -136,7 +136,7 @@ public class ListButton extends Button//Actor
       if (ll<di.size()&&ll>=0) {
         lt=di.key(ll);
         if (ll==selline) {
-          g.fill(0);
+          g.fill(90);
           g.rect(x, y+cy+pixofs-lts, w, lts);
           g.fill(200);
         } else {
@@ -145,7 +145,7 @@ public class ListButton extends Button//Actor
             g.rect(x, y+cy+pixofs-lts, w, lts);
           }
 
-          g.fill(textcol);
+          g.fill(textcolor);
         }
         g.text(lt, x-xoffs+ts, y+cy+pixofs-lts+ts/4);
       }

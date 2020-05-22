@@ -17,11 +17,15 @@ public class Switch extends Button {
      state=!state ;
      super.mousePressed(); // action,please
      return true;
- // how can this change the reference?
-    
+ // how can this change the reference? 
+   }
+   
+   @Override public String displayText(){
+     return txt.replace("#",state?"x":"");
    }
    
    public void draw(){  
+    
     super.draw();
     if(!small){
     int ks=ts/2;

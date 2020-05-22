@@ -59,6 +59,7 @@ public class UI extends I
    
    
   static final ArrayList<Actor> a=new ArrayList<Actor>();
+  
   //static final long serialVersionUID= 110860+1;
   static public void draw(){
     int i;
@@ -108,6 +109,13 @@ public class UI extends I
   
   static boolean active(){ return a.size()>0;}
   
+  static public boolean handleBackPressed(){
+    if(active()) pop();
+    return active();
+    // todo: handle dragback etc.
+  }
+  
+  
   static public Actor pop(){ 
     Actor ca=tos(); 
     a.remove(a.size()-1);
@@ -118,6 +126,11 @@ public class UI extends I
   }
   
   static public void push(Actor ac){ 
+    if(a.contains(ac)){
+      // pull to top??
+      int i = a.indexOf(ac);
+      a.remove(i);
+    }
     a.add(ac);
     Keyboard.hide();
     // or focus the first keyconsumer?

@@ -72,7 +72,7 @@ public class Text extends Button implements Keyboard.KeyConsumer {
     int tl=s.length();
     if(cursor>tl) cursor=tl;
     float tw=g.textWidth(s.substring(0,cursor));
-    g.stroke(textcol);
+    g.stroke(textcolor);
     g.strokeWeight(PApplet.max(6,ts/10));
     
     float cx=x+tw+ts/2;

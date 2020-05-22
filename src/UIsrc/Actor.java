@@ -9,15 +9,13 @@ import java.util.*;
 public class Actor extends Button
   // implements Interact 
 {
-
-  // PGraphics dc;
-  int ax=ts/2;
-  int ay=ts/2;
-  int aw=me.width-ts;
-  int ah=me.height-ts;
+  public int ax=ts/2;
+  public int ay=ts/2;
+  public int aw=me.width-ts;
+  public int ah=me.height-ts;
   public boolean back=false;
 
-  ArrayList<Button> buttons=new ArrayList<Button>();
+  public ArrayList<Button> buttons=new ArrayList<Button>();
 
   public Actor(int _x, int _y, int _width, int _height) {
     ax=_x;
@@ -114,17 +112,18 @@ public class Actor extends Button
   public boolean autoClose=false;
   public boolean fixed=false;
 
-  public boolean show() {
+  public void show() {
    // PApplet.println("actor acts");
     UI.push(this);
-    return true;
+   
   }
-  public boolean act() { // catch backward comp
-    show();
-    return true;
-  }
+  
+//  public boolean act() { // catch backward comp
+//    show();
+//    return true;
+//  }
 
-  void hide() {
+  public void hide() {
     UI.pop(); // ourself away..
   }
 
@@ -201,9 +200,9 @@ public class Actor extends Button
 
     // begin2D(g); in actorstack now..
     if (back) {
-      g.stroke(255);
+      g.stroke(255);g.strokeWeight(8);
       //g.noStroke();
-      g.fill(10, 100, 130, 250); 
+      g.fill(10, 150, 160, 250); 
       Rect(ax-ts/2, ay-ts/2, aw+ts, ah+ts);  
       g.flush();
     }
@@ -318,7 +317,7 @@ public class Label extends Button {
     
     Label(String t) {
       super(t, "");
-      textcol=0xff999999; // todo
+      textcolor=0xffbbbbbb; // todo
     };
 }
 

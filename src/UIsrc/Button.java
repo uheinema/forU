@@ -21,8 +21,8 @@ public class Button extends I //
   
   public int sbackcol= 0xff505059;
   
-  public static int defaultTextcol =0xff000000;
-  public int textcol = defaultTextcol;
+  public static int defaultTextcolor =0xff000000;
+  public int textcolor = defaultTextcolor;
   
   public int boncol= 0xff990099;
   public int  boffcol=0;
@@ -123,7 +123,7 @@ public class Button extends I //
 
   public boolean fullscreen() {
     return false;
-  }// Interact must implement
+  }// Interact must implement..no longer
 
   public void drag() {
   };
@@ -183,11 +183,11 @@ public class Button extends I //
 
   public void prepTextStyle() {
     g.textSize(ts);
-    g.fill(textcol);//,200);
+    g.fill(textcolor);//,200);
     g.textAlign(LEFT, CENTER);
   }
 
-  String displayText() {
+  public String displayText() {
     return (txt==null)?"":txt;
   }
 
@@ -246,20 +246,27 @@ public class Button extends I //
     return false ;
   }
 
-
+  public boolean act(String action){
+    return act(action,param);
+  }
 
   public boolean act() {
     return act(param);
   }
+  
   public boolean act(int param) {
     return act(action, param);
   }
+  
   public boolean act(String action, int param)
   {
 
     if (action==null||action=="") {
       if (maction==null) return false;
     }
+    
+   // PApplet.println("Trying to call "+action+" from "+txt);
+
     if (action.charAt(0)=='@') {
       action=action.substring(1);
       if (schedule( action+"#"+param));
@@ -275,8 +282,7 @@ public class Button extends I //
     // println(owner.getClass().getName());
 
 
-    //  println("Trying to call "+action+" from "+txt);
-
+      
     if (aMethod==null) try {
       aMethod =
         owner.getClass().getMethod(acts[0], new Class[] {});
@@ -306,7 +312,7 @@ public class Button extends I //
       } 
       catch (Exception e) {
         // wrong type?
-        PApplet. println("oopsie, got method, cant invoke?");
+        PApplet. println("Oops, problem on method invoke? Caused by:");
         e.printStackTrace();
         return false;
       }
@@ -325,7 +331,7 @@ public class Button extends I //
     float x, float y, float w, float h, 
     boolean unitsquare) {
     
-    if(tex!=null)
+    if(true||tex!=null)
     {
       PShape r;
       g.pushMatrix();
@@ -348,15 +354,15 @@ public class Button extends I //
     
     g.popMatrix();
     }
-      else
+    else
        g.rect(x,y,w,h);
   }
 
   public void Rect(float x, float y, float w, float h) {
      Rect(x,y,w,h,true);
    }
-public void Rect(float x, float y, float w, float h,boolean b) {
-
+   
+  public void Rect(float x, float y, float w, float h,boolean b) {
     Rect(null, x, y, w, h, b);
   }
 } // class button

@@ -30,6 +30,13 @@ public class PShapeCreator3D implements ShapeCreator, PConstants {
   float lx, ly;
 
 
+public void uvertex(PShape s, float x, float y, float z)
+  {
+    s.vertex(x, y, z, 
+      Math.abs(x/size)%1f,Math.abs((y/size ))%1f);
+  }
+
+
   public PShape text( String t) {
     return text(null, t);
   }
@@ -137,12 +144,7 @@ public class PShapeCreator3D implements ShapeCreator, PConstants {
     return b.cross(c).normalize();
   }
 
-  public void uvertex(PShape s, float x, float y, float z)
-  {
-    s.vertex(x, y, z, 
-      Math.abs(x/size), Math.abs((y/size )));
-  }
-
+  
   private void stripVertex(float x, float y, 
     boolean withCaps) {
     stripbegin(x, y);
@@ -236,7 +238,7 @@ public class PShapeCreator3D implements ShapeCreator, PConstants {
     int steps=6;
     steps=(int)Math.floor(d*deltaa);
     steps=PApplet.constrain(steps, 2, 8);
-    //println("steps "+steps+" for "+d);
+   // println("steps "+steps+" for "+d);
     doQuadSteps(steps, 
       lx, ly, 
       cx, cy, 

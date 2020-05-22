@@ -96,12 +96,11 @@ public class Slider
     return value;
   }
   
-  String displayText(){
+  public String displayText(){
     return txt.replace("#",PApplet.nf(value,0,0));
-    
   }
   
-  void release(){
+  public void release(){
     super.mousePressed(); // signal end of drag, 
     // and trigger super action    
     super.release(); // sets dragging=false;
