@@ -18,8 +18,11 @@ import processing.core.*;
      ts=_ts;
    //  g.textSize(ts); // ??? no side effects,vplease!
    }
+   
   public static void setup(PApplet _me) {
     me=_me;
     g=me.g;
+
+
   }
 }

@@ -30,14 +30,6 @@ void draw() {
   rotateY(t*5);
   rotateZ(t*7);
   box(wi.value,400,400);
-  UI.draw();
-}
-
-void mousePressed() {
-  // UI needs to know
-  if (UI.mousePressed()) return ;
-  // your code here, if any.
-  return;
 }
 
 

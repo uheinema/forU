@@ -27,7 +27,7 @@ void setup()
 {
   fullScreen(P3D);
   textSize(32);
-  new UI(this, 80);
+  new UI(this, 70);
   new Ttf(this); // so we can access the assets 
   defF=Ttf.createFont("test", theFont);
   fontT=defF;
@@ -87,20 +87,18 @@ void draw() {
   gl=fontT.getGlyph(glnr);
   scale(1000.0f/fontT.unitsPerEm);
   gl.draw();
-
-  UI.draw();
 }
 
-
+/*
 void mousePressed() {
   // UI needs to know
   // with looping, 
   if (isLooping()) { 
-    if (UI.mousePressed()) return ;
+    if (UI.handledPressed) return ;
     noLoop();
   } else {
    // loop();
-    if (UI.mousePressed()) {
+    if (UI.handledPressed) {
      // redraw();
       //return ;
     }
@@ -109,5 +107,5 @@ void mousePressed() {
   return;
 }
 
-
+*/
 

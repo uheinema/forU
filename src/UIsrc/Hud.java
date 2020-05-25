@@ -42,8 +42,8 @@ public class Hud {
     pg.resetMatrix(); 
     PGraphicsOpenGL pgl = (PGraphicsOpenGL)pg; 
     pushed_lights = pgl.lights; 
-    // pgl.lights = false;
-    pg.lights(); // so this goes through light shaders
+    pgl.lights = false;
+    //pg.lights(); // so this goes through light shaders
     // for procedural textures
     // will be sufficienly lit
     pgl.pushProjection(); 

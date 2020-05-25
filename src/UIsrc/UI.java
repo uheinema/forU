@@ -13,7 +13,7 @@ import processing.core.PApplet;
 // for convenience
 import android.widget.Toast;
 //mport android.app.Activity;
-
+import processing.event.MouseEvent;
 
 public class UI extends I
 // extends ArrayList<Actor>
@@ -29,12 +29,50 @@ public class UI extends I
    //
    public UI(PApplet a,int ts){
      super.setup(a,ts);
+     me.registerMethod("draw",this);
+     me.registerMethod("mouseEvent",this);
    }
    
    public UI(PApplet a){
      super.setup(a);
+     me.registerMethod("draw",this);
+     me.registerMethod("mouseEvent",this);
    }
-  
+   
+   public static boolean handledPressed;
+   public void mouseEvent(MouseEvent event) {
+  //int x = event.getX();
+ // int y = event.getY();
+
+  switch (event.getAction()) {
+   
+    case MouseEvent.PRESS:
+    // event.setAction(0);
+   //  UI.toast("press");
+     // these events happen on a tjtead which may not
+     // have eg. network allowance..
+     handledPressed=mousePressed();
+     // how can we remove this event?
+      // do something for the mouse being pressed
+      break;
+    case MouseEvent.RELEASE:
+      // do something for mouse released
+      break;
+    case MouseEvent.CLICK:
+      // do something for mouse clicked
+      break;
+    case MouseEvent.DRAG:
+      // do something for mouse dragged
+      break;
+    case MouseEvent.MOVE:
+      // do something for mouse moved
+      break;
+  }
+}
+   
+ //  public void draw(){ // just does ehat it should
+     
+  // }
    // for supersimple mode...
    public static Actor clear(){
      return tos().clear();   
@@ -63,7 +101,7 @@ public class UI extends I
   //static final long serialVersionUID= 110860+1;
   static public void draw(){
     int i;
-    
+    react();// or do this on post() or(pre)??
     Hud.begin2D(g);
     // go down to the next full screen
     for(i=a.size()-1;i>0;i--){
@@ -71,13 +109,25 @@ public class UI extends I
     }
     
     // from there draw painters algorithm
-    for(i=0;i<a.size();i++)
+    for(;i<a.size();i++)
       if(i>=0)
         a.get(i).draw();
      Hud.end2D(g);
   }
   
-  //oolean fullscreen(){return false;}
+  public static void schedule(Button bu){
+    reactor=bu;
+  }
+  
+  static private Button reactor;
+  
+  static void react()
+  {
+    if(reactor!=null){  
+      reactor.act(reactor.action.substring(1));
+      reactor=null;
+    }
+  }  
   
   static public boolean mousePressed(){
     if(!active()) return false;

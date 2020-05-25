@@ -114,7 +114,7 @@ void backPressed(){ /// does not work this way
 */
 
  public static void keyPressed(char key,int keyCode){
- // println("pressed ("+int(key)+") "+key);
+ //me.println("pressed ("+(int)key+") "+key+" code "+keyCode);
   
   if (key==PApplet.CODED){
     //print("coded: ");

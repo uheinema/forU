@@ -23,6 +23,7 @@ public class Actor extends Button
     aw=_width;
     ah=_height;
     back=ax!=0;
+    if(back) backcolor=me.color(10+me.random(250), 150, 100,200);
   }
 
 
@@ -200,11 +201,14 @@ public class Actor extends Button
 
     // begin2D(g); in actorstack now..
     if (back) {
-      g.stroke(255);g.strokeWeight(8);
+     // drawBack();?should do?
+    //  g.stroke(255);g.strokeWeight(18);
       //g.noStroke();
-      g.fill(10, 150, 160, 250); 
-      Rect(ax-ts/2, ay-ts/2, aw+ts, ah+ts);  
-      g.flush();
+      g.fill(backcolor);
+       // transparancy creatws weird effects
+      // with Rect
+      g.rect(ax-ts/2, ay-ts/2, aw+ts, ah+ts);  
+    //  g.fl ush(); //...said Alice
     }
     int n=buttons.size();
     int mx=0;
@@ -223,7 +227,6 @@ public class Actor extends Button
         ;
         lh=0;
       }
-
       b.setPos(x, y);
       b.draw(); 
       x+=b.eff_w();
@@ -317,7 +320,7 @@ public class Label extends Button {
     
     Label(String t) {
       super(t, "");
-      textcolor=0xffbbbbbb; // todo
+     // textcolor=0xff; // todo
     };
 }
 

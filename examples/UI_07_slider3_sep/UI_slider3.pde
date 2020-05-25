@@ -47,14 +47,8 @@ void draw() {
   if(follow.state) colChange();
   fill(boxcol);
   box(wi.value,400,400);
-  UI.draw();
 }
 
-void mousePressed() {
-  // UI needs to know
-  if (UI.mousePressed()) return ;
-  // your code here, if any.
-  return;
-}
+
 
 

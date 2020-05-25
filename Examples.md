@@ -80,13 +80,20 @@ See how forU.I handles things...
 
 import forU.I.*;
   
-  ...
+ void setup(){
+     fullScreen(P3D);
      new UI(this, 64); // default button text height
      UI.add("hello","world"); // just a plain button, for now.
-....
+}
+
  void world(){ // gets called when the button is pressed
    println("Hello world!");
  }
+ 
+ draw(){
+   // something...
+ }
+ 
  ``` 
 and read on.
 
@@ -201,9 +208,17 @@ Showcase Demo, Take 1...
 
 ![starscroll](starscroll.jpg)
 
-## TTF_UI_Xx_menu
+## UI_09_menu_synth
 
-A (popup) `MenuBar`, synced `Switch`, ...
+Demonstrates more UI, namely
+
+-;A (popup) `MenuBar`, genuine Android, as easy to use like UI.
+- 'Switch` to control it
+- The original ColorPicker...lots of them, actually.
+- Bonus 1: A beep generator for processing.sound.*. Like a color picker, just for sound...
+- Bonus 2: Referencing a web site, easy way.
+
+![synth](synth.jpg)
 
 ## TTF_UI_selectFile
 

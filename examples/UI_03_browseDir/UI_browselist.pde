@@ -13,7 +13,7 @@ void setup() {
   fullScreen(P3D);
   textSize(32);
 
-  new UI(this, 96); // default text size
+  new UI(this, 70); // default text size
   // create ui elements only after UI is initialized!
   //
   li=new ListButton(
@@ -39,10 +39,8 @@ void sorted(){
 
 
 void listSelect (int row) {
- //UI.flash("select:"+row+
- //"\nget:"+((row>=0)?li.get(row-1)-1:"nada"));
   if(row<1)
-  {
+  { // naive
     int ld=path.lastIndexOf("/");
     setPath(path.substring(0,ld));
   }
@@ -71,14 +69,6 @@ void setPath(String s){
 void draw() {
   // your drawing code here, eg.
   background(13); // this gets annoying ...frameCount%255);
-  UI.draw();
-}
-
-void mousePressed() {
-  // UI needs to know
-  if (UI.mousePressed()) return ;
-  // your code here, if any.
-  return;
 }
 
 

@@ -55,14 +55,6 @@ void draw() {
   
   fill(boxcol.get());
   box(wi.value,400,400);
-  UI.draw();
-}
-
-void mousePressed() {
-  // UI needs to know
-  if (UI.mousePressed()) return ;
-  // your code here, if any.
-  return;
 }
 
 

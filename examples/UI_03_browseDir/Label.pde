@@ -7,7 +7,7 @@ class Label extends Button {
     
     Label(String t) {
       super(t, "");
-      textcol=0xffffff99; // todo
+      textcolor=0xffffff99; // todo
     };
     
     public Label setText(String t){

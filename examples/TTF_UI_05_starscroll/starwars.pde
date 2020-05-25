@@ -42,7 +42,7 @@ class Scroller {
 
   void rota(float outhi) { // for @Override
     translate(outhi/5, outhi, 0);
-    rotateX(0.41*PI);
+    rotateX(param.value*PI);
     scale(0.71, 4.55, 1);
     translate(0, -pixofs, 0);
   }

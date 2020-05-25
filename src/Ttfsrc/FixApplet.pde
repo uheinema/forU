@@ -1,6 +1,15 @@
 
 
 
+// if in preview, assets are in internal storage
+
+String [] listAssetsX(String path,String filter) {
+  if (isPreview()) 
+    return listFiles(sketchPath(path),filter);
+  else
+    return listAssets(path,NODIRS); // todilo: filyer
+}
+
 
 // to detect preview mode, create a textfile
 // sketch/data/I/i.exist
@@ -50,7 +59,7 @@ boolean isPreview(){
 
 
 /* testing */
-/*/// off
+/* off * /
 boolean isPreview =false;
 boolean testedPreview=false;
 

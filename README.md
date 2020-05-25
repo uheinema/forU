@@ -68,19 +68,18 @@ Up to a [point](#motivation)..
  void draw(){
     background(frameCount%255);
      // your drawing code here
-    UI.draw();
 }
 
+void world(){ // gets called when the button is pressed
+   println("Hello world!");
+ }
+ 
 void mousePressed() {
-   // UI needs to know
-   if (UI.mousePressed()) return ;
+   if (UI.handledPressed) return ;
    // your code here, if any.
    return;
 }
    
- void world(){ // gets called when the button is pressed
-   println("Hello world!");
- }
  
  ```
  to display an action button on top of your sketch display.
@@ -89,7 +88,7 @@ void mousePressed() {
  
  ----
  
- More to come in the [forU.I Tutorial](Examples.md)
+ More in the [forU.I Examples](Examples.md) ...
  
  ----
  # Soon to come
@@ -205,7 +204,7 @@ a year before, much of this would not have been written...still, it is a complet
 
 [https://github.com/EmmanuelPil/Android-java-code-utilities-widgets-for-Processing-for-Android]()
 
-#### Other Tools
+#### Other Tools I use
 
 Some essential, some mandatory, some recommended:
 
@@ -218,6 +217,8 @@ You know how that works, so
 - TrueCommander
 - DiffTools
 - QuickEdit
+- Hacker's Keyboard
+- APK Editor
 -  ...
 
 ## Motivation

@@ -26,9 +26,11 @@ String theFont[] = {
 
 
 Switch nati, outline, x3D;
-Slider sli;
+Slider radio;
 
-Slider param=new Slider("Z #    .","",1f);
+// develpmemt artifact
+Slider param;
+
 
 Ttf fontT;
 PFont font,fontP;
@@ -57,17 +59,23 @@ void setup()
   nati=new Switch("PFont", "xn#1", false);
   outline=new Switch("Outline", "xn#2", false);
   x3D=new Switch("3D", "xn#3", true);
-  sli=new Slider("Radio ", "xn#0", 3f);
-  sli.range(1, 3, 1); 
-  param.range(0.1,5000,0).logarithmic=true;;
-  
+  radio=new Slider("Radio ", "xn#0", 3f);
+  radio.range(1, 3, 1); // three steps to heaven, will
+  // appesr as selector
+  param=new Slider("P #    ","",0.43f);
+  param.range(0.0,0.5,0).logarithmic=false;;
+  param.setSize(width-80,0);
   UI
     .add(nati)
     .add(outline)
     .add(x3D)
-    .add(sli)
-  // .add(param)
-   ;
+    .add(radio);
+ 
+  // would be hidden in a final app,
+  // once the right value is found
+   
+  UI.add(new Actor().add(param));
+  
   stars=loadImage("randomsky.jpg");// "ldem_3_8bit.jpg" );
   moon=loadImage("DS_BODY.JPG"
    //"ldem_3_8bit.jpg"
@@ -82,23 +90,24 @@ void setup()
   sphereDetail(32);
   fill(color(223,200,200));
   moonsphere= createShape( SPHERE ,g.width);
-  moonsphere.setTexture(moon);
-  moonmat();
+  moonsphere.setTexture(moon); 
+  deathmat();
+  
   sphereDetail(6);
   fill(color(203,203,234));
   starsphere= createShape( SPHERE ,g.width*2.6);
   starsphere.setTexture(stars);
-  //backsphere.translate(00,1000,0);
+  
 }
 
 // tie them into a radiogroup
 void xn(int which) {
-  if (which==0) which=round(sli.value);
+  if (which==0) which=round(radio.value);
   nati.state=which==1;
   outline.state=which==2;
   x3D.state=which==3;
   // or use a small slider
-  sli.value=which;
+  radio.value=which;
 }
 
 
@@ -116,11 +125,11 @@ void Ks(float r,float g, float b){
   moonsphere. setSpecular(co(r,g,b));
 }
 
-void moonmat(){
+void deathmat(){
 Ka( 0.584314 ,0.584314 ,0.584314);
 Kd (0.584314 ,0.584314 ,0.584314);
 Ks (0.898039, 0.898039 ,0.898039);
-moonsphere. setShininess(param.value);
+//moonsphere. setShininess(param.value);
 }
 
 /*
@@ -131,7 +140,8 @@ setShininess
 */
 
 void draw() {
-  //moonmat();
+  // to be explsined in example 23...
+  ((Actor)UI.tos().last()).align(BOTTOM);
   background(0);
   pushMatrix();
   lights();
@@ -164,17 +174,5 @@ void draw() {
   scroll.draw(height/2);
   scroll.advance(1);
   textFont(font);
-  UI.draw();
 }
 
-@Override 
-  //void mouseClicked () { // does not work??
-  void mousePressed () { // does work
-  UI.mousePressed();
-  /*
-  if (isLooping()) {  
-   noLoop();
-   } else
-   loop();
-   */
-}

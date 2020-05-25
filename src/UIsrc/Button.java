@@ -13,12 +13,14 @@ import android.content.Context;
 public class Button extends I //
   implements Interact, PConstants
 {
+  
+  final int framed =0;
   public static int defaultBackcolor =0xffffffff;
   public int backcolor= defaultBackcolor;
   
-  public static int defaultSmarkcol = 0xffffff00;
-  public int smarkcol=defaultSmarkcol;
-  
+ public static int defaultSmarkcol = 0xffffff00;
+ public int smarkcol=defaultSmarkcol;
+ 
   public int sbackcol= 0xff505059;
   
   public static int defaultTextcolor =0xff000000;
@@ -79,7 +81,7 @@ public class Button extends I //
       tw=(int)g.textWidth(txt);
     }
     w=tw+ts;
-    small=false;
+   // small=false;
     h=ts+ts/2;
     dragging=false;
     fx=fy=-1;// free floating
@@ -94,13 +96,13 @@ public class Button extends I //
     this(text, null, 0);
   }
 
-  public Button setSmall(boolean to) {
-    if (small==to) return this;
-    small=to;
-    if (small) w-=ts; 
-    else w+=ts;
-    return this;
-  };
+//  public Button setSmall(boolean to) {
+//    if (small==to) return this;
+//    small=to;
+//    if (small) w-=ts; 
+//    else w+=ts;
+//    return this;
+//  };
 
   public Button setTexture(PImage _tex) {
     tex=_tex;
@@ -135,6 +137,7 @@ public class Button extends I //
 
   void release() {
     dragging=false;
+    if(mouseInside()) act();
   }
 
   public boolean mouseInside() {
@@ -158,18 +161,29 @@ public class Button extends I //
       }
     }
 
-    if (!small) {
-      g.fill(backcolor);
-    } else if (state)
-      g.fill(sbackcol);
-    else // small, off
-      g.fill(backcolor);
-
+    
+    if(dragging) 
+    g.fill((backcolor|0xff70ff70)&0xfff0fff0);
+     
+      else
+       g.fill(backcolor);
+    
+    
+  
+    // the outline gets drawn at an offset....shaders?
+  //  
+  if(framed!=0&&mouseInside()&&dragging){
+      
+     g.strokeWeight(30);
+     g.stroke(0xff701111);
+     }
+   else
+   
     g.noStroke();
-    g.rectMode(CORNER);
-    g.pushMatrix();
-    Rect(tex, x, y, w, h, unitsquare);
-    g.popMatrix();
+    g.rectMode(CORNER); 
+    g.rect(x,y,w,h);
+    //Rect(tex, x, y, w, h, unitsquare);
+    
   }
 
   public void  drawFront() {
@@ -217,35 +231,6 @@ public class Button extends I //
     return this;
   }
 
-  boolean schedule(String action) {
-
-    if (owner==null) 
-      owner=me;
-    Method aMethod;
-    try {
-      //   println(owner.getClass().getName());
-      aMethod =
-        owner.getClass().getMethod("schedule", new Class[] { String.class});
-    } 
-    catch (Exception e) 
-    {
-      // no such method, or an error.. which is fine, just ignore
-      PApplet.println("reflex: no schedule defined for "+txt);
-      // e.printStackTrace();
-      return false;
-    }
-
-    try {
-      aMethod.invoke(owner, new Object[] {action});
-      return true;
-    } 
-    catch (Exception e) {
-      // wrong type?
-      e.printStackTrace();
-    } 
-    return false ;
-  }
-
   public boolean act(String action){
     return act(action,param);
   }
@@ -268,8 +253,8 @@ public class Button extends I //
    // PApplet.println("Trying to call "+action+" from "+txt);
 
     if (action.charAt(0)=='@') {
-      action=action.substring(1);
-      if (schedule( action+"#"+param));
+     // action=action.substring(1);
+      UI.schedule(this);// action+"#"+param));
       return true;
     }
     String []acts=action.split("#");
@@ -298,8 +283,7 @@ public class Button extends I //
       hasParam=true;
     } 
     catch (Exception e) {
-      // no such method
-      PApplet.println("No method '"+action+"' on '"+owner.getClass().getName());
+      UI.toast("No method '"+action+"' on '"+owner.getClass().getName());
     }
 
     if (aMethod != null) {
@@ -312,7 +296,7 @@ public class Button extends I //
       } 
       catch (Exception e) {
         // wrong type?
-        PApplet. println("Oops, problem on method invoke? Caused by:");
+        UI.toast("Oops, problem on method invoke? Caused by '"+action+"' on '"+owner.getClass().getName());
         e.printStackTrace();
         return false;
       }
@@ -321,7 +305,9 @@ public class Button extends I //
   } // handlepressed
 
   public boolean mousePressed() {
-    return act();
+    dragging=true;
+    return true;
+    //return act();
   }
 
 
@@ -331,7 +317,7 @@ public class Button extends I //
     float x, float y, float w, float h, 
     boolean unitsquare) {
     
-    if(true||tex!=null)
+    if(tex!=null)
     {
       PShape r;
       g.pushMatrix();
@@ -366,4 +352,3 @@ public class Button extends I //
     Rect(null, x, y, w, h, b);
   }
 } // class button
-

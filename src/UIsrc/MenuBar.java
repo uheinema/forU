@@ -35,143 +35,168 @@ import forU.I.Button;
 
 public class MenuBar extends Actor {
 
-// use android intrrface as a singleton
-// 
-//ctivity act; 
-static int menuanchorId;
-static int menubarId;
-static boolean toggle;
-static TextView menubar;
-static public boolean transparent=false;
+  // use android intrrface as a singleton
+  // 
+  // all interaction with android ui needs a runonaUI bracket?
 
-public MenuBar(String t){
-  super();
-  txt=t;
-  backcolor=Color.rgb(70, 70, 120);
-  this.setup();
-}
+  int menuanchorId;
+  int menubarId;
+  boolean toggle;
+  TextView menubar; // to change title
+  public boolean transparent=false;
+
+  public MenuBar(String t) {
+    super();
+    txt=t;
+    backcolor=Color.rgb(70, 70, 120);
+    this.setup();
+  }
 
 
-public void  setup() {
-me.getActivity().runOnUiThread(
-    new Runnable() {
-    public void run() {
-      runStartup();
-    }
+  public void  setup() {
+    me.getActivity().runOnUiThread(
+      new Runnable() {
+      public void run() {
+        create();
+      }
     }
     );
- }    
-      
-public void setTitle(String t){
-  menubar.setText(txt);
-}
+    me.registerMethod("draw",this);
+  }    
 
-public void show() {
-   show(true);
-}
-
- public void hide() {
-   show(false);
-}
-
-public boolean visible() {
-  return toggle;
-}
-       
-public boolean show(boolean vis) {
-  toggle=vis;
-  me.getActivity().runOnUiThread(
-    new Runnable() {
-    public void run() {
-      TextView tv = (TextView)me.getActivity().findViewById(menuanchorId);
-      TextView tvv = (TextView)me.getActivity().findViewById(menubarId);
-      if (toggle) {
-        tv.setVisibility(View.VISIBLE);
-        tvv.setVisibility(View.VISIBLE);
-      } else {
-        tv.setVisibility(View.GONE);
-        tvv.setVisibility(View.GONE);
+  public void setTitle(String t) {
+    txt=t;
+    me.getActivity().runOnUiThread(
+      new Runnable() {
+      public void run() {
+        menubar.setText(txt);
       }
     }
+    );
+  }    
+
+
+  public void show() {
+    show(true);
   }
-  );
-  ///toggle =! toggle;
-  //toggle=true;
-  return toggle;
-}
 
-public  void runStartup() {
-  final Context mC;
-  final FrameLayout fl;
-  final Activity act = //this.
-     me.getActivity();
-  int width = me.width;
-  mC= act.getApplicationContext();
-  // To prevent status bar showing up
-  act.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-  int mbts=ts/3;
-  
-  menubar = new TextView(act);
-  menubar.setLayoutParams(new RelativeLayout.LayoutParams(width-width/12, width/12));
-  menubar.setTextSize(mbts); //pts per pix???
-  menubar.setX(0);
-  menubar.setY(0);
- // menubar.setGravity(Gravity.CENTER);
-  if(!transparent) menubar.setBackgroundColor(backcolor);// Color.rgb(70, 70, 120));
-  menubar.setTextColor(Color.WHITE);
-  menubar.setText(txt);
-  menubar.setVisibility(View.GONE);
-  //menubarId=CompatUtils.getUniqueViewId();
-  menubarId = View.generateViewId();
-  menubar.setId(menubarId);
+  public void hide() {
+    show(false);
+  }
 
-  TextView menuanchor = new TextView(act);
-  menuanchor.setLayoutParams(new RelativeLayout.LayoutParams(width/12, width/12));
-  menuanchor.setTextSize(mbts);
-  menuanchor.setTextColor(Color.WHITE);
-  menuanchor.setX(width-width/12);
-  menuanchor.setY(0);
-  if(!transparent) menuanchor.setBackgroundColor(backcolor);
-  menuanchor.setGravity(Gravity.CENTER);
-  menuanchor.setText("⋮");
-  menuanchor.setVisibility(View.GONE);
-  menuanchorId = View.generateViewId();
-  menuanchor.setId(menuanchorId);
-  
-  menuanchor.setOnClickListener(new View.OnClickListener() {
-    public void onClick(View view) {
-      
-      TextView menuanchor = (TextView) act.findViewById(menuanchorId);
-      PopupMenu popupMenu = new PopupMenu(mC, menuanchor);
-      // we are an actor, so we have a bunch of buttons, hopefully
-      int i=0;
-      for(Button b:buttons){
-        popupMenu.getMenu().add(Menu.NONE, i+1, i, b.displayText());
-        i++;
-      }
-      
-      popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-        public boolean onMenuItemClick(MenuItem item) {
-          // UI.flash(action);
-         int id=item.getItemId()-1;
-         if(id>=0&&id<buttons.size()){
-           return buttons.get(id).mousePressed();
-         }
-          UI.flash("menu: erratic id "+id);
-          return false;
-         
+  public boolean visible() {
+    return toggle;
+  }
+
+  public boolean show(boolean vis) {
+    toggle=vis;
+    me.getActivity().runOnUiThread(
+      new Runnable() {
+      public void run() {
+        TextView tv = (TextView)me.getActivity().findViewById(menuanchorId);
+        TextView tvv = (TextView)me.getActivity().findViewById(menubarId);
+        if (toggle) {
+          tv.setVisibility(View.VISIBLE);
+          tvv.setVisibility(View.VISIBLE);
+        } else {
+          tv.setVisibility(View.GONE);
+          tvv.setVisibility(View.GONE);
         }
       }
-      );
-      popupMenu.show();
     }
+    );
+    ///toggle =! toggle;
+    //toggle=true;
+    return toggle;
   }
-  );
 
-  fl = (FrameLayout)act.findViewById(R.id.content);
-  fl.addView(menubar);
-  fl.addView(menuanchor);
-}
+  private void create() {
+    final Context mC;
+    final FrameLayout fl;
+    final Activity act = //this.
+      me.getActivity();
+    int width = me.width;
+    mC= act.getApplicationContext();
+    // To prevent status bar showing up
+    act.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    int mbts=ts/3;
 
+    menubar = new TextView(act);
+    menubar.setLayoutParams(new RelativeLayout.LayoutParams(width-width/12, width/12));
+    menubar.setTextSize(mbts); //pts per pix???
+    menubar.setX(0);
+    menubar.setY(0);
+    // menubar.setGravity(Gravity.CENTER);
+    if (!transparent) menubar.setBackgroundColor(backcolor);// Color.rgb(70, 70, 120));
+    menubar.setTextColor(Color.WHITE);
+    menubar.setText(txt);
+    menubar.setVisibility(View.GONE);
+    //menubarId=CompatUtils.getUniqueViewId();
+    menubarId = View.generateViewId();
+    menubar.setId(menubarId);
 
+    TextView menuanchor = new TextView(act);
+    menuanchor.setLayoutParams(new RelativeLayout.LayoutParams(width/12, width/12));
+    menuanchor.setTextSize(mbts);
+    menuanchor.setTextColor(Color.WHITE);
+    menuanchor.setX(width-width/12);
+    menuanchor.setY(0);
+    if (!transparent) menuanchor.setBackgroundColor(backcolor);
+    menuanchor.setGravity(Gravity.CENTER);
+    menuanchor.setText("⋮");
+    menuanchor.setVisibility(View.GONE);
+    menuanchorId = View.generateViewId();
+    menuanchor.setId(menuanchorId);
+
+    menuanchor.setOnClickListener(new View.OnClickListener() {
+      public void onClick(View view) {
+
+        TextView menuanchor = (TextView) act.findViewById(menuanchorId);
+        PopupMenu popupMenu = new PopupMenu(mC, menuanchor);
+        // we are an actor, so we have a bunch of buttons, hopefully
+        // should switch/slider have special reps?
+        int i=0;
+        for (Button b : buttons) {
+          popupMenu.getMenu().add(Menu.NONE, i+1, i, b.displayText());
+          i++;
+        }
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+          public boolean onMenuItemClick(MenuItem item) {
+            // UI.flash(action);
+            // this is running on uithread,
+            // and should be delayed until
+            // draw/pre/mousepressed context
+            
+            int id=item.getItemId()-1;
+            if (id>=0&&id<buttons.size()) {
+              reactor= buttons.get(id);
+              return true;// or false??
+              // return buttons.get(id).act();
+            }
+            UI.flash("menu: erratic id "+id);
+            return false;
+          }
+        }
+        );
+        popupMenu.show();
+      }
+    }
+    );
+
+    fl = (FrameLayout)act.findViewById(R.id.content);
+    fl.addView(menubar);
+    fl.addView(menuanchor);
+  }
+  
+  // the Runnable receiving the click is in
+  // some other (restricted) thtrsf, do yhid has been delsyef
+  
+  private Button reactor;
+  
+  public void draw(){
+    if(reactor!=null)
+      reactor.act();
+    reactor=null;
+  }
 }
