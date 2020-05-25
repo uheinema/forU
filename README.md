@@ -1,6 +1,6 @@
 # Work in progress.
 
-As of now (22.05.2020) I can't seem to push to a private repository, so this is public. [State of the Library](#notes)
+As of now (25.05.2020) I can't seem to push to a private repository, so this is public. [State of the Library](#notes)
 
 
 # forU
@@ -74,12 +74,6 @@ void world(){ // gets called when the button is pressed
    println("Hello world!");
  }
  
-void mousePressed() {
-   if (UI.handledPressed) return ;
-   // your code here, if any.
-   return;
-}
-   
  
  ```
  to display an action button on top of your sketch display.
