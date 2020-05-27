@@ -1,4 +1,4 @@
-# Work in progress.
+## Work in progress.
 
 As of now (26.05.2020) I can't seem to push to a private repository, so this is public. [State of the Library](#notes)
 
@@ -9,12 +9,20 @@ As of now (26.05.2020) I can't seem to push to a private repository, so this is 
 
 - [x]  [Ttf](#foruttf) -Truetype font handling 
 - [x] [I](#forui) - Simple user interface (no docs)
+
+#### Try the [examples](Examples.md)
+
+Other projects
+
 - [ ] [ClipDraw](#foruclipdraw) - Clipping with arbitrary region 
-- [ ] [ForTex](forufortex) - Procedural texture generation
+- [ ] [ForTex](#forufortex) - Procedural texture generation
 - [ ] Mold and seal generation
 - [ ] ...
 
-#### Am I reinventing the wheel?  
+
+---
+
+### Am I reinventing the wheel?  
 
 Up to a [point](#motivation)..
 
@@ -44,17 +52,17 @@ Up to a [point](#motivation)..
   There often is the need for a simple user interface in a sketch, be it during development or to trigger user actions.
   Available libraries for Processing depend on nonexisting  java.awt etc. or are written in a too modern Java dialect, making them impossible to use with [APDE](#apde)
   
-  
   forU.I will provide that, offering
   - a basic Button class to trigger actions, ie. call a void whatever() method in your applet when pressed.
   - Switch, Slider, List, ... classes derived from that
   - Simple Text input with automatic Keyboard control (Android only)
   - The Actor class to tie these into a dialog and handle user interaction
+  - Clean class structure designed for both ease of use and expandabilty
   - much more...
   
-#### Nothing to declare.
+#### Nothing to declare!
+
   In its most simple form all you have to do is
-  
   ```Java
   import forU.I.*;
   
@@ -73,14 +81,6 @@ Up to a [point](#motivation)..
 void world(){ // gets called when the button is pressed
    println("Hello world!");
  }
- 
-void mousePressed() {
-   if (UI.handledPressed) return ;
-   // your code here, if any.
-   return;
-}
-   
- 
  ```
  to display an action button on top of your sketch display.
  
@@ -91,13 +91,14 @@ void mousePressed() {
  More in the [forU.I Examples](Examples.md) ...
  
  ----
- # Soon to come
  
- ## forU.ForTex 
+# Soon to come
+ 
+## forU.ForTex 
  
  (will probably get its own lib)
  
- ### Procedural textures for Android.
+### Procedural textures for Android.
  
   - Executed in the fragment shader
   - Compiled on the fly from a Forth-like language (ForSH) into GLSL
@@ -106,7 +107,7 @@ void mousePressed() {
  
  ![Sample ForTex screenshot](fortex.jpg)
  
- ## forU.ClipDraw
+## forU.ClipDraw
  
  (Soon)
  
