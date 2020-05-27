@@ -18,7 +18,7 @@ public class ListButton extends Button//Actor
   public ListButton(String s, String a) {
     // title=s;
     super(s, a);
-    h=lts*4+1;
+    h=lts*4;
     w=me.width-100;
     di=new IntDict();
   };
@@ -105,6 +105,10 @@ public class ListButton extends Button//Actor
     return this;
   }
 
+  boolean hasTitle() {
+    return (txt!=null&&!"".equals(txt));
+  }
+
   private 
 
     int lines=1;
@@ -112,47 +116,71 @@ public class ListButton extends Button//Actor
   int lineofs=0;
   int xoffs=0; 
   private int pixofs=0;
+  int maxw;
 
   @Override
     public void drawFront() {
-    int line=-1;
+    int line=0;
     int cy=0;
+    int hsize=0;
 
+    maxw=1;
     g.pushStyle();
     g.pushMatrix();
 
+    g.noStroke();
     g.fill(0);
     g.textAlign(LEFT, TOP);
-    g.textSize(ts);
-    g.text(txt, x+ts/2, y+cy+ts/4); // ??
-    cy+=lts;  
-    g.imageMode(CORNER);
-    g.clip(x, y+cy, w, h-cy);
-    //    println("list: "+lines);
-    for (line=-1; line<lines+1; line++) {              
-      //  g.fill(222);   
-      String lt="";
-      int ll=line+lineofs;
-      if (ll<di.size()&&ll>=0) {
-        lt=di.key(ll);
-        if (ll==selline) {
-          g.fill(90);
-          g.rect(x, y+cy+pixofs-lts, w, lts);
-          g.fill(200);
-        } else {
-          if (oddcol!=0&&(ll%2)==0) {
-            g.fill(oddcol);
-            g.rect(x, y+cy+pixofs-lts, w, lts);
-          }
+    g. textSize (ts);
 
-          g.fill(textcolor);
-        }
-        g.text(lt, x-xoffs+ts, y+cy+pixofs-lts+ts/4);
-      }
-      cy+=lts;
-      if (cy-ts>h) break;
+    if (hasTitle()) {
+      g. text (txt, x+ts/2, y+cy+ts/4); // ??
+      cy+=lts;  
+      hsize=lts;
+      g.imageMode(CORNER);
     }
-    g.clip(0, 0, me.width, me.height);
+    g.clip(x, y+cy, w, h-cy);
+    if (h>lts) 
+    {
+      //    println("list: "+lines);
+      for (line=-1; line<lines+1; line++) {              
+        //  g.fill(222);   
+        String lt="";
+        int ll=line+lineofs;
+        if (ll<di.size()&&ll>=0) {
+          lt=di.key(ll);
+          if (ll==selline) {
+            g.fill(90);
+            g.rect(x, y+cy+pixofs-lts, w, lts);
+            g.fill(200);
+          } else {
+            if (oddcol!=0&&(ll%2)==0) {
+              g.fill(oddcol);
+              g.rect(x, y+cy+pixofs-lts, w, lts);
+            }
+
+            g.fill(textcolor);
+          }
+          g.text(lt, x-xoffs+ts, y+cy+pixofs-lts+ts/4);
+          maxw=(int)PApplet.max(maxw, g.textWidth(lt));
+        }
+        cy+=lts;
+        if (cy>h+hsize) break;
+      }
+
+      // draw a scrollbar, if needed
+      int efflines=((hasTitle()?-1:0)+lines);
+      float rat=(efflines+1)/(1.0f*di.size());
+        
+      if (rat<1.0) {
+        // needs scroll
+        //  float yo=di.
+        g.fill(smarkcol);
+        g.stroke(0);
+        g.rect(x+w-12, hsize+y+ts*lineofs*rat, 12, h*rat);
+      }
+    }
+     g.clip(0, 0, me.width, me.height);
     g.popStyle();
     g.popMatrix();
   }
@@ -166,7 +194,8 @@ public class ListButton extends Button//Actor
     if (dl!=0) {
       dragged=true;
     }
-    xoffs=clamp(xoffs-dragDistx, 0, 10000);
+    xoffs=clamp(xoffs-dragDistx, 0, ts*2+maxw-w);
+    xoffs=clamp(xoffs, 0, 2000);
     dragsx+=dragDistx;
     if (lineofs<=0&&dragDist>0) {
       dragDist=0; 
@@ -219,7 +248,7 @@ public class ListButton extends Button//Actor
       } else {
         int ly=me.mouseY-y-pixofs;
         ly/=lts;
-
+        if(!hasTitle()) ly++;
         if (ly!=0) {     
           selline=ly+lineofs-1;
           act(ly+lineofs);

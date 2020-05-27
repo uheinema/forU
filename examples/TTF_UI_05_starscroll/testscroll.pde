@@ -11,9 +11,9 @@ import forU.I.*;
 
 String theFont[] = {
   "AbrazoScriptSSiNormal.ttf",
-  "big-space.regular.otf",
-  "slogan.ttf"
-  //"lithograph.ttf", // caps
+ // "big-space.regular.otf",
+  "slogan.ttf",
+  "lithograph.ttf", // caps
   //"Courier.ttf", // not for PFont
   //"fonts/SansSerif.ttf"
   //"fonts/Time_Roman.ttf"

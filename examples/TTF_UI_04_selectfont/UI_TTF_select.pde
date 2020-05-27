@@ -26,7 +26,7 @@ String filter=".ttf";
 void setup() 
 {
   fullScreen(P3D);
-  textSize(32);
+  textSize(35);
   new UI(this, 70);
   new Ttf(this); // so we can access the assets 
   defF=Ttf.createFont("test", theFont);
@@ -78,7 +78,7 @@ void draw() {
   // 1ˢᵗ, 2ᶮᵈ, 3ʳᵈ, 4ᵗʰ.
   Ttf.text("The 1ˢᵗ quick grün Fox \njumps over the ½ lazy dog.", 
     50, 400);
-    
+  pushMatrix();
   translate(100, height-450);
   stroke(0);
   fill(color(183, 200));
@@ -87,25 +87,75 @@ void draw() {
   gl=fontT.getGlyph(glnr);
   scale(1000.0f/fontT.unitsPerEm);
   gl.draw();
+  popMatrix();
 }
 
-/*
 void mousePressed() {
   // UI needs to know
   // with looping, 
+  //;when does this happenn??
+  if(UI.mousePressed())
+    return;
+      // ui relies on draw to monitor the
+      // mouse drag/ release, so it
+      // would not really work in nollop
+      // 
   if (isLooping()) { 
-    if (UI.handledPressed) return ;
+    UI.hide();
+    rect(20,height-300,width-40,150);
+    fill(0);
+    text("Tap to continue",100,height-200);
     noLoop();
   } else {
-   // loop();
-    if (UI.handledPressed) {
-     // redraw();
-      //return ;
-    }
-    loop();
+     UI.show();
+     loop();
   }
   return;
 }
 
-*/
 
+void xxmousePressed() {
+  // UI needs to know
+  // with looping, 
+  //;when does this happen?
+  UI.draw();
+  if(UI.mousePressed()){
+    if(!UI.isLooping()){
+     UI. flash("!");
+     handleMethods("draw");
+     UI.draw();
+     //;will of course do nothing, ss seemin tobbe looping?
+      redraw();
+    }
+    return;
+      // ui relies on draw to monitor the
+      // mouse drag/ release, so this will not really work...
+  }
+  if (UI.isLooping()) { 
+  // UI.hide();
+    rect(20,height-300,width-40,150);
+    fill(0);
+    text("Tap to continue",100,height-200);
+    UI.noLoop();
+  } else {
+     UI.show();
+     UI.loop();
+  }
+  return;
+}
+
+
+
+  /**
+   * Add an event to the internal event queue, or process it immediately if
+   * the sketch is not currently looping.
+   */
+   /// says PApplet...unfortuantly, by the
+   /// g.requestedNoLoop shit
+   /// looping remains true until the next frame
+   /// breaking the message sequencing
+   /// eg. noLoop(); if(isLooping()){always} ....
+   /// (i.e. registered events come always
+   /// after mousePressed)....what can we do
+   /// to intercept such a message?
+   /// 

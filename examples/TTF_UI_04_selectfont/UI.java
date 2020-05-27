@@ -39,7 +39,9 @@ public class UI extends I
     me.registerMethod("mouseEvent", this);
   }
 
-  
+  public static void println(String s) {
+    PApplet.println(s);
+  }
   // Processing is calling this last, so
   // the main applett mousePressed has already happened
   // no, thid is only true for keys
@@ -138,11 +140,11 @@ public class UI extends I
     Hud.end2D(g);
   }
 
-  public static void schedule(Action bu) {
+  public static void schedule(Button bu) {
     reactor=bu;
   }
 
-  static private Action reactor;
+  static private Button reactor;
 
   static void react()
   {

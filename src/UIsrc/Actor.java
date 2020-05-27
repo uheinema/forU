@@ -4,8 +4,6 @@ package forU.I;
 import processing.core.PApplet;
 import java.util.*;
 
-
-
 public class Actor extends Button
   // implements Interact 
 {
@@ -167,7 +165,6 @@ public class Actor extends Button
   private int dsx, dsy;
 
   void handleDrag() {
-
     ax+=me.mouseX-dsx;
     dsx=me.mouseX;
     ay+=me.mouseY-dsy;
@@ -179,7 +176,7 @@ public class Actor extends Button
   @Override
     public boolean mouseInside()
   {
-    return mouseInside4(ax, ay, aw, ah);
+    return mouseInside(ax, ay, aw, ah);
   }
 
   public void draw()
@@ -210,10 +207,10 @@ public class Actor extends Button
       g.rect(ax-ts/2, ay-ts/2, aw+ts, ah+ts);  
     //  g.fl ush(); //...said Alice
     }
-    int n=buttons.size();
+    
     int mx=0;
     // println(n);
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i <buttons.size() ; i++) {
       Button b = buttons.get(i);
       if (b.fx>0) {  // fixed placement
 
@@ -228,7 +225,7 @@ public class Actor extends Button
         lh=0;
       }
       b.setPos(x, y);
-      b.draw(); 
+      b.draw(); // this may modify thid menu now!
       x+=b.eff_w();
       mx=PApplet.max(x, mx);
       lh=PApplet.max(lh, b.h);

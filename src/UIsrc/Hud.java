@@ -5,13 +5,10 @@ import processing.core.*;
 import processing.opengl.*;
 
 public class Hud {
-  //nt ts=64;
-  /////
   PShape hudrect(PGraphics g, PImage tex)
   {
     PShape s=g.createShape();
     s.setTextureMode(PConstants.NORMAL);
-
     s.beginShape(PConstants.QUAD);
     g.textureWrap(PConstants.REPEAT);//CLAMP no effect???
     s.width=g.width;

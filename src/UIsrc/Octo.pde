@@ -12,6 +12,7 @@ class Octo {
   int resultCode;
 
   void connect() {
+   // UI.toast("connect");
     JSONObject cc=new JSONObject()
       .put ("command", "connect");
     JSONObject j=postJSON("connection", cc);

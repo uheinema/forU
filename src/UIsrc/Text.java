@@ -8,7 +8,7 @@ public class Text extends Button implements Keyboard.KeyConsumer {
  
   public  Text(String _txt){
     super(_txt);
-    backcolor=200;
+   // backcolor=0xffe0e0e0;
     w=PApplet.max(w,600);
     cursor=txt.length();
   }
@@ -59,9 +59,9 @@ public class Text extends Button implements Keyboard.KeyConsumer {
   
   @Override
   public void draw(){
-    g.pushMatrix();
+   // g.pushMatrix();
     super.draw();
-    g.popMatrix();
+   // g.popMatrix();
     //act(x,y);
     if(!Keyboard.hasFocus(this)) return;
     if((me.frameCount/10)%2==0) return;

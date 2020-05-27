@@ -2,8 +2,9 @@
 import forU.I.*;
 
 ListButton li; 
-String path="shaders"; // should always be there
-// try path= "" ;
+String// path="shaders"; // should always be there
+// try 
+path= "" ;
 String [] slist;
 
 void setup() {
@@ -18,7 +19,7 @@ void setup() {
     "--- Fold/unfold ---", // title
    "liSelect",  // action
     slist, // content
-    20); // number of lines
+    10); // number of lines
   UI
     .add("close", "world") // just a plain button     
     .add(li)

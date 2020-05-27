@@ -3,21 +3,37 @@
 import android.os.*;
 import java.lang.reflect.*;
 
+import com.jsyn.*;
+
+
+
+void sg()
+{
+   Synthesizer synth = JSyn.createSynthesizer();
+}
+
+
 ListButton li;
 
+
+String [] theList;
 void addli(Actor a) {
-  String mett= "java.lang.reflect.Field";
+  String mett= "com.jsyn.JSyn";//java.lang.reflect.Method";
   //println( android.R.style.Theme_Translucent_NoTitleBar);
   //java.lang.reflect.Field";
-  li= new ListButton(mett, "", 
-    printMethods(mett)
-    , 20);
+  
+  li= new ListButton(mett, "tt", 
+    theList=printMethods(mett)
+    , 10);
   //li.oddcol=202;
  // li.backcolor=250;
   a.add(li);
-  li.collapse(true);
+  //li.collapse(true);
 }
 
+void tt(int i){
+  UI.flash("had "+i);
+}
 
 String[] printMethods(String cn) {
   try {

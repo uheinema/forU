@@ -12,7 +12,7 @@ class Scroller3D extends Scroller {
     super(tx, height);
     extruder=
       new PShapeCreator3D (g, ts, ts/4);  
-    extruder.deltaa=0; // hack..use minimal curve resolution
+   //extruder.deltaa=0; // hack..use minimal curve resolution
     lshapes  = new PShape[tx.length];
     createShapes();
   }
