@@ -1,6 +1,6 @@
 # Work in progress.
 
-As of now (25.05.2020) I can't seem to push to a private repository, so this is public. [State of the Library](#notes)
+As of now (26.05.2020) I can't seem to push to a private repository, so this is public. [State of the Library](#notes)
 
 
 # forU
@@ -74,6 +74,12 @@ void world(){ // gets called when the button is pressed
    println("Hello world!");
  }
  
+void mousePressed() {
+   if (UI.handledPressed) return ;
+   // your code here, if any.
+   return;
+}
+   
  
  ```
  to display an action button on top of your sketch display.
@@ -133,8 +139,19 @@ void world(){ // gets called when the button is pressed
 
 ![Ugly ForZen screenshot](forzen.jpg)
 
-# This and that ...
+# Notes
 
+## State
+
+26.05.2020:
+
+- [x] Ttf useable, documented, examples.
+ - [ ] CharTable example
+- [x] UI useable, examples
+ - [ ] File selector example
+ - [ ] Dokumentation
+- [ ]  Put ForZen/ForTex, Apps, into separate repos.
+-
 ## Installation
 
  - Unzip into
@@ -171,9 +188,10 @@ All code here was written ( if not copied from elsewhere ), edited and tested wi
 
 Praise Calsign!
 
-Also, the .jar and .jar-dex libraries here where created with APDE.
+Also, the .jar and -dex.jar libraries here where created with APDE.
 
-- [ ] write howto on creating libraries with apde
+- [x] write Howto on creating libraries with APDE.  
+ Find it on GitHub [here](https://github.com/uheinema/Building-processing-libs-with-APDE)
 
 #### Markor
 
