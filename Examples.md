@@ -229,6 +229,9 @@ If we want to control more than one color, things get ugly, and our UI gets crow
  - As a bonus, copies the color definition to the Android clipboard  
 Thanks to
  https://github.com/EmmanuelPil/Android-java-code-utilities-widgets-for-Processing-for-Android
+ 
+ ![colorpick](colorpick.jpg)
+ 
 
 ---
 
@@ -244,18 +247,54 @@ Showcase Demo, Take 1...
 Demonstrates more UI, namely
 
 -;A (popup) `MenuBar`, genuine Android, as easy to use like UI.
-- 'Switch` to control it
+```Java
+  menu=new MenuBar(sketchName());
+  menu
+     .add("Hide menu", "popup#0")
+    .add("Synth", "isizer")
+    .add("BackColor", "pick")
+    .add("Random color","randomColorPicker")
+    .add("forU on GitHub","openu");
+```
+
+- a 'Switch` to control it
+ ```Java
+ ...
+ showmenu = new Switch("Menu", "popup#1", true);
+ ...
+ void popup(int id) {
+  if (id==0) showmenu.state=false;
+  menu.show(showmenu.state);
+}
+ ```
 - The original ColorPicker...lots of them, actually.
+```Java
+void randomColorPicker(){
+  new ColorPicker(color(
+    random(255),random(255),random(255)))
+    .show();
+} 
+ ```
+
 - Bonus 1: A beep generator for processing.sound.*. Like a color picker, just for sound...  
 > To use this example, you will have to install the processing.sound.* package, if  not already present. Find it [here](https://github.com/processing/processing-sound)
 
 
 - Bonus 2: Referencing a web site, easy way.
 
-
+```Java
+void openu(){ 
+ link("https://github.com/uheinema/forU");
+} 
+ ```
 
 ![synth](synth.jpg)
 
 ## TTF_UI_selectFile
 
 Tbc...
+
+
+Part of [forU](README.md).
+
+-----

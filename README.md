@@ -1,18 +1,22 @@
-## Work in progress.
-
-As of now (26.05.2020) I can't seem to push to a private repository, so this is public. [State of the Library](#notes)
-
-
 # forU
 
-#### Assorted Java libs made with/for [APDE](#apde)
+## Assorted Java libs made with/for [APDE](#apde)
+
+### [State of the Library](#notes) 
+ - [x] basic functionality exists & documented (mostly)
+ 
+#### Work in progress.
+As of now (29.05.2020) I can't seem to push to a private repository, so this is public.
+
+#### Have a look at the tutorial and   [forU.I Examples](Examples.md) 
+
+### Packages
 
 - [x]  [Ttf](#foruttf) -Truetype font handling 
 - [x] [I](#forui) - Simple user interface (no docs)
 
-#### Try the [examples](Examples.md)
 
-Other projects
+### Other projects
 
 - [ ] [ClipDraw](#foruclipdraw) - Clipping with arbitrary region 
 - [ ] [ForTex](#forufortex) - Procedural texture generation
@@ -20,7 +24,6 @@ Other projects
 - [ ] ...
 
 
----
 
 ### Am I reinventing the wheel?  
 
@@ -56,8 +59,9 @@ Up to a [point](#motivation)..
   - a basic Button class to trigger actions, ie. call a void whatever() method in your applet when pressed.
   - Switch, Slider, List, ... classes derived from that
   - Simple Text input with automatic Keyboard control (Android only)
-  - The Actor class to tie these into a dialog and handle user interaction
-  - Clean class structure designed for both ease of use and expandabilty
+  - The Actor class to tie these into a dialog and handle user interaction (mostly 'behind the scenes')
+  - class UI fot a simple static interface
+  - Clean class structure and API designed for both ease of use and expandabilty
   - much more...
   
 #### Nothing to declare!
@@ -74,7 +78,7 @@ Up to a [point](#motivation)..
    }
    
  void draw(){
-    background(frameCount%255);
+    background(frameCount%255); // OMG, it's alife!
      // your drawing code here
 }
 
