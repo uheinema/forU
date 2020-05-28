@@ -206,8 +206,12 @@ Use it as an example and base for creating your own `ShapeCreator` subclass.
 - [ ] Add textAlign, textWidth,...
 
 ---
-to be continued 21.05.2020
+
+to be continued 28.05.2020
 
 [Back](README.md)
 
 
+
+
+====

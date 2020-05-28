@@ -12,7 +12,7 @@ For now, have a look at the
 
 > Part of [forU](README.md).
 
-I suggest you go through the examples in the given order, they also work as a tutorial of sorts, namely as long as there is.no documentation on `forU.I`
+I suggest you go through the examples in the given order, they also work as a tutorial of sorts, namely as long as there is.no other documentation on `forU.I`
 
 
 ## UI_01_minimal
@@ -26,9 +26,9 @@ The key concept in forU.I is to specify actions as a `String` parameter, which i
 
 And it is simple, Processing style:
 
-No ([skip](#urgh))
+#### No ([skip](#urgh))
 
-
+-----
 ```Java
 import android.widget.TextView;
 import android.app.Activity;
@@ -51,7 +51,7 @@ me.getActivity().runOnUiThread(
     public void run() {
     
 ....
-
+~~~
 TextView tv = new TextView(act);  
   tv.setLayoutParams(new RelativeLayout.LayoutParams(500, 100));
   tv.setBackgroundColor(Color.GRAY);
@@ -71,8 +71,10 @@ TextView tv = new TextView(act);
 .....
 // etc pp
 ```
+----
 
-#### Urgh
+
+#### Urgh, that should be easier...
    
 See how forU.I handles things...
 
@@ -95,13 +97,15 @@ import forU.I.*;
  }
  
  ``` 
-and read on.
+Yes, that:'s all. Read on.
 
 ## UI_02_listAssets
 
-UI with a `ListButton` showing a subdirectory of your assets, in this case `shaders`, as it always exists (injected by Processing/APDE?).
-For fun, look at "" instead...on my phone dozens of files show up, probably somehow injected by Huawei...
-And note that in Preview you will NOT find your own assets this way.  
+UI with 
+- a `Switch`
+- a `ListButton` showing a subdirectory of your assets, in this case `shaders`, as it always exists (injected by Processing/APDE?).
+> For fun, look at "" instead...on my phone dozens of files show up, probably somehow injected by Huawei...
+And note that in APDE Preview you will NOT find your own assets this way.  
 See TTF_UI_04_selectfont for more explanations.
 
 ## UI_03_browseDir
@@ -119,9 +123,36 @@ Now on to some eye candy:
 
 ## TTF_01_minimal
 
-Demonstrates a minimal environment for using Ttf.
+Demonstrates a minimal environment for using [Ttf](Ttf.md).
 Displays a static text with outlines.
 Uses stencil.ttf
+
+And short & simple, too:
+
+```Java
+import forU.Ttf.*;
+
+String theFont = "stencil.ttf";
+Ttf fontT;
+
+void setup() 
+{
+  fullScreen(P3D);
+  new Ttf(this); // so we can acces the assets
+  fontT=Ttf.createFont("test", theFont);
+   // makes it the default font, too
+ }
+
+void draw(){
+  background(123); //// BAD for noLop()!! resd in TTF_02 ...
+  stroke(color(frameCount%255,0,0));
+  strokeWeight(10);
+  fill(255);
+  Ttf.textSize(300);
+  Ttf.text("Hello\nTTF!\n"+theFont,
+    50,height/3);
+}
+```
 
 ## TTF_02_glyphs
 
@@ -215,8 +246,13 @@ Demonstrates more UI, namely
 -;A (popup) `MenuBar`, genuine Android, as easy to use like UI.
 - 'Switch` to control it
 - The original ColorPicker...lots of them, actually.
-- Bonus 1: A beep generator for processing.sound.*. Like a color picker, just for sound...
+- Bonus 1: A beep generator for processing.sound.*. Like a color picker, just for sound...  
+> To use this example, you will have to install the processing.sound.* package, if  not already present. Find it [here](https://github.com/processing/processing-sound)
+
+
 - Bonus 2: Referencing a web site, easy way.
+
+
 
 ![synth](synth.jpg)
 
