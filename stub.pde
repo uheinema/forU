@@ -3,7 +3,9 @@
 
 Placeholder for library, delete after insysllstion!
 
-Tjis just exists so i can push from apde
+This just exists so i can git push from apde.
+
+When not deleted, it will obscure the real examples
 
 
 */
